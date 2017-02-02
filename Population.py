@@ -1,3 +1,5 @@
+from math import *
+
 class vect2D:    
     def __init__(self, x = 0, y = 0):
         self.x = x
@@ -47,3 +49,23 @@ class vect2D:
         return "[{},{}]".format(self.x,self.y)
     def __repr__(self):
         return "[{},{}]".format(self.x,self.y)
+    
+## Méthodes:
+    def norme(self):
+        return sqrt(self.x**2 + self.y**2)
+    
+    
+
+
+class individu:
+    def __init__(self, pos, r, m, dpos, d2pos):
+        self.pos = pos
+        self.dpos = dpos
+        self.d2pos = d2pos
+        self.r = r
+        self.m = m
+# Méthodes :    
+    def distance(individu1, individu2):
+        return norme(individu1 - individu2)
+    def touche(individu1,individu2):
+        return distance(individu1, individu2) <= individu1.r + individu2.r
