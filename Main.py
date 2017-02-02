@@ -2,7 +2,6 @@
 #----------------------Projet Don't Panic !--------------------#
 #------------------------Fichier Main--------------------------#
 #
-# Par LAM Kevin et MEILAC Adrien
 #
 # Ce code est le coeur du projet Don't Panic !
 #
