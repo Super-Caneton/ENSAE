@@ -56,12 +56,12 @@ class vect2D:
     def p_scal(vecteur1, vecteur2):
         return vecteur1.x * vecteur2.x + vecteur1.y * vecteur2.y
     def projection(a, b): #projection du vecteur a sur le vecteur b
-        return b - p_scal(a, b)*b
+        return b - p_scal(a, b) * b
     
 
 
 class individu:
-    def __init__(self, pos, r, m, dpos, d2pos):
+    def __init__(self, pos, dpos, r, m):
         self.pos = pos
         self.dpos = dpos
         self.d2pos = d2pos
