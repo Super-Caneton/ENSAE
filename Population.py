@@ -72,3 +72,10 @@ class individu:
         return norme(individu1 - individu2)
     def touche(individu1, individu2):
         return distance(individu1, individu2) <= individu1.r + individu2.r
+
+    
+class mur:
+    def __init__(self,pos,dimension, angle):
+        self.pos = pos
+        self.dimension = dimension
+        self.angle = angle #l'angle est mesuré dans le sens horaire
