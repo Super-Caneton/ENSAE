@@ -52,8 +52,11 @@ class vect2D:
     
 ## Méthodes:
     def norme(self):
-        return sqrt(self.x**2 + self.y**2)
-    
+        return sqrt(p_scal(self, self))
+    def p_scal(vecteur1, vecteur2):
+        return vecteur1.x * vecteur2.x + vecteur1.y * vecteur2.y
+    def projection(a, b): #projection du vecteur a sur le vecteur b
+        return b - p_scal(a, b)*b
     
 
 
@@ -67,5 +70,5 @@ class individu:
 # Méthodes :    
     def distance(individu1, individu2):
         return norme(individu1 - individu2)
-    def touche(individu1,individu2):
+    def touche(individu1, individu2):
         return distance(individu1, individu2) <= individu1.r + individu2.r
