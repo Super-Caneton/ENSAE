@@ -61,10 +61,10 @@ class vect2D:
 
 
 class individu:
-    def __init__(self, pos, dpos, r, m):
+    def __init__(self, pos, dpos, r, m, vmax):
         self.pos = pos
         self.dpos = dpos
-        self.d2pos = d2pos
+        self.vmax = vmax
         self.r = r
         self.m = m
 # Méthodes :    
