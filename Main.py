@@ -31,7 +31,7 @@ tk.update()
 
 def init_indiv():
     for i in range(NIndiv) :
-        pos = randvect2D(rIndiv, largeur-rIndiv,rIndiv, hauteur-1*rIndiv)
+        pos = randvect2D(rIndiv, largeur-rIndiv,rIndiv, hauteur-rIndiv)
         dpos = randvect2D(-3,3,-3,3)
         indiv=individu(pos, dpos, rIndiv, mIndiv, terrain,"black")
         LIndiv.append(indiv)
