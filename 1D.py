@@ -32,10 +32,12 @@ def tri_individus():
 
 def update():
     global pos, Dpos
-    for k in reversed(range(n_individu)):
+    n = len(pos)
+    for k in reversed(range(n)):
         pos[k] += Dpos[k]
         if pos[k] > sortie:
             pos.pop(k)
+            Dpos.pop(k)
         if k < n_individu - 1 and pos[k] > pos[k+1]:
             pos[k] = pos[k+1] - 1
 
