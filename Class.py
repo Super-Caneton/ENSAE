@@ -8,54 +8,61 @@ class vect2D:
         
 ## Addition de vecteurs
     def __iadd__(self, vecteur):
-        if type(vecteur) == vect2D:
-            self.x += vecteur.x
-            self.y += vecteur.y
-            return self
-    def __add__(vecteur1, vecteur2):
-        if type(vecteur1) == vect2D and type(vecteur2) == vect2D:
-            nVecteur = vect2D()
-            nVecteur += vecteur1
-            nVecteur += vecteur2
-            return nVecteur
+        nVecteur = vect2D()
+        nVecteur.x = self.x
+        nVecteur.y = self.y
+        nVecteur.x += vecteur.x
+        nVecteur.y += vecteur.y
+        return nVecteur
+    def __add__(self, vecteur):
+        nVecteur = self
+        nVecteur += vecteur
+        return nVecteur
     def __isub__(self, vecteur):
-        if type(vecteur) == vect2D:
-            self.x -= vecteur.x
-            self.y -= vecteur.y
-            return self
-    def __sub__(vecteur1, vecteur2):
-        if type(vecteur1) == vect2D and type(vecteur2) == vect2D:
-            nVecteur = vect2D()
-            nVecteur += vecteur1
-            nVecteur -= vecteur2
-            return nVecteur
+        nVecteur = vect2D()
+        nVecteur.x = self.x
+        nVecteur.y = self.y
+        nVecteur.x -= vecteur.x
+        nVecteur.y -= vecteur.y
+        return nVecteur
+        return nVecteur
+    def __sub__(self, vecteur):
+        nVecteur = self
+        nVecteur -= vecteur
+        return nVecteur
         
 ## Multiplication par un scalaire
     def __imul__(self, scalaire):
-        if type(scalaire) == int or type(scalaire) == float:
-            self.x *= scalaire
-            self.y *= scalaire
-            return self
-    def __mul__(vecteur, scalaire):
-        if (type(scalaire) == int or type(scalaire) == float) and type(vecteur) == vect2D:
-            nVecteur = vecteur
-            nVecteur *= scalaire
-            return nVecteur
-    def __rmul__(vecteur, scalaire):
-        if (type(scalaire) == int or type(scalaire) == float) and type(vecteur) == vect2D:
-            return vecteur * scalaire
+        nVecteur = vect2D()
+        nVecteur.x = self.x
+        nVecteur.y = self.y
+        nVecteur.x += scalaire
+        nVecteur.y += scalaire
+        return nVecteur
+    def __mul__(self, scalaire):
+        nVecteur = vect2D()
+        nVecteur.x = self.x
+        nVecteur.y = self.y
+        nVecteur *= scalaire
+        return nVecteur
+    def __rmul__(self, scalaire):
+        return self * scalaire
 
 ## Affichage d'un vecteur
     def __str__(self):
         return "[{},{}]".format(self.x,self.y)
     def __repr__(self):
         return "[{},{}]".format(self.x,self.y)
+
+##Méthodes
+    def norme(self) :
+        return sqrt(self.x**2+self.y**2)
     
     
 class randvect2D(vect2D):
     def __init__(self, xmin, xmax, ymin, ymax) :
-        self.x = randint(xmin, xmax)
-        self.y = randint(ymin, ymax)
+        self.x = uniform(xmin, xmax)
+        self.y = uniform(ymin, ymax)
     
 
 class individu:
