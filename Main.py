@@ -13,7 +13,7 @@ TpsRaffraichissement=10 #Temps de raffraichissement en ms
 
 #Variables concernant les individus
 LIndiv=[]
-NIndiv=10
+NIndiv=20
 rIndiv=5
 mIndiv=1
 
@@ -76,12 +76,13 @@ def rebond_indiv(individu1, individu2, e) :
     t1 = individu1.dpos - n1
     t2 = individu2.dpos - n2
     
-    individu1.dpos = t1 + n2
-    individu2.dpos = t2 + n1
+    individu1.dpos = t1 + n2*e
+    individu2.dpos = t2 + n1*e
     
     return
     
-#def rebond_mur(individu, mur, e) :
+def rebond_mur(individu, mur, e) :
+    return
     
 def rebond_bord(individu, e) :
     pos = individu.pos
@@ -97,6 +98,11 @@ def rebond_bord(individu, e) :
 def gravitation(individu) :
     individu.dpos.y += 0.1
     return
+    
+def force_centrale(individu, pos, k, alpha) :
+    om = (individu.pos - pos)
+    individu.dpos -= k/(om.norme()**alpha)*om
+    return
 
 
 ##Fonction de mise à jour
@@ -104,6 +110,7 @@ def update():
     for i, individu1 in enumerate(LIndiv) :
         bouge_indiv(individu1)
         rebond_bord(individu1,eBord)
+        #force_centrale(individu1, vect2D(400,250), 0.001, 0)
         for individu2 in LIndiv[i+1:] :
             if touche_indiv(individu1, individu2) :
                 rebond_indiv(individu1,individu2, eIndiv)
