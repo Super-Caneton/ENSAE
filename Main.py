@@ -1,88 +1,118 @@
+from tkinter import *
+from Class import *
 from math import *
-from random import *
 
-class vect2D:    
-    def __init__(self, x = 0, y = 0):
-        self.x = x
-        self.y = y
-        
-## Addition de vecteurs
-    def __iadd__(self, vecteur):
-        nVecteur = vect2D()
-        nVecteur.x = self.x
-        nVecteur.y = self.y
-        nVecteur.x += vecteur.x
-        nVecteur.y += vecteur.y
-        return nVecteur
-    def __add__(self, vecteur):
-        nVecteur = self
-        nVecteur += vecteur
-        return nVecteur
-    def __isub__(self, vecteur):
-        nVecteur = vect2D()
-        nVecteur.x = self.x
-        nVecteur.y = self.y
-        nVecteur.x -= vecteur.x
-        nVecteur.y -= vecteur.y
-        return nVecteur
-        return nVecteur
-    def __sub__(self, vecteur):
-        nVecteur = self
-        nVecteur -= vecteur
-        return nVecteur
-        
-## Multiplication par un scalaire
-    def __imul__(self, scalaire):
-        nVecteur = vect2D()
-        nVecteur.x = self.x
-        nVecteur.y = self.y
-        nVecteur.x += scalaire
-        nVecteur.y += scalaire
-        return nVecteur
-    def __mul__(self, scalaire):
-        nVecteur = vect2D()
-        nVecteur.x = self.x
-        nVecteur.y = self.y
-        nVecteur *= scalaire
-        return nVecteur
-    def __rmul__(self, scalaire):
-        return self * scalaire
+##Variables
 
-## Affichage d'un vecteur
-    def __str__(self):
-        return "[{},{}]".format(self.x,self.y)
-    def __repr__(self):
-        return "[{},{}]".format(self.x,self.y)
+#Variable de la fenêtre
+Titre="Projet d'info (Test)"
+largeur=800
+hauteur=500
 
-##Méthodes
-    def norme(self) :
-        return sqrt(self.x**2+self.y**2)
+TpsRaffraichissement=10 #Temps de raffraichissement en ms
+
+#Variables concernant les individus
+LIndiv=[]
+NIndiv=10
+rIndiv=5
+mIndiv=1
+
+#Coefficient de rebond elastique
+eIndiv = 1
+eMur = 1
+eBord = 1
+
+##GUI
+
+#Fenêtre
+tk = Tk()
+tk.title(Titre)
+tk.resizable(0, 0)
+tk.wm_attributes("-topmost", 1)
+
+#Le terrain
+terrain = Canvas(tk, width=largeur,height=hauteur, bd=0, highlightthickness=0, background="ivory")
+terrain.pack()
+
+tk.update()
+
+###Méthodes
+
+def init_indiv():
+    for i in range(NIndiv) :
+        pos = randvect2D(rIndiv, largeur-rIndiv,rIndiv, hauteur-rIndiv)
+        dpos = randvect2D(-3,3,-3,3)
+        indiv=individu(pos, dpos, rIndiv, mIndiv, terrain,"black")
+        LIndiv.append(indiv)
+    return
+
+
+def bouge_indiv(individu) :
+    individu.pos += individu.dpos
+    terrain.move(individu.id, individu.dpos.x, individu.dpos.y)
+    return
+
+
+##Fonctions auxiliaires
+def touche_indiv(individu1, individu2) :
+    return (individu1.pos - individu2.pos).norme() <= individu1.r+individu2.r
+
+def p_scal(vecteur1, vecteur2):
+    return vecteur1.x * vecteur2.x + vecteur1.y * vecteur2.y
     
+def projection(vecteur1, vecteur2): #projection du vecteur "vecteur1" sur le vecteur "vecteur2"
+    return p_scal(vecteur1, vecteur2) * vecteur2
+
+
+##Gestion des rebonds
+def rebond_indiv(individu1, individu2, e) : 
+
+    n = individu1.pos - individu2.pos
+    n *= 1/n.norme()
     
-class randvect2D(vect2D):
-    def __init__(self, xmin, xmax, ymin, ymax) :
-        self.x = uniform(xmin, xmax)
-        self.y = uniform(ymin, ymax)
+    n1 = projection(individu1.dpos, n)
+    n2 = projection(individu2.dpos, n)
     
+    t1 = individu1.dpos - n1
+    t2 = individu2.dpos - n2
+    
+    individu1.dpos = t1 + n2
+    individu2.dpos = t2 + n1
+    
+    return
+    
+#def rebond_mur(individu, mur, e) :
+    
+def rebond_bord(individu, e) :
+    pos = individu.pos
+    r = individu.r
+    if pos.x -r < 0 or pos.x + r > largeur:
+        individu.dpos.x *= -e
+    if pos.y - r < 0 or pos.y + r > hauteur :
+        individu.dpos.y *= -e
+    return
+    
+##Forces
+#Exemple d'application de forces
+def gravitation(individu) :
+    individu.dpos.y += 0.1
+    return
 
-class individu:
-    def __init__(self, pos, dpos, r, m, canvas, color):
-        self.pos = pos
-        self.dpos = dpos
-        self.r = r
-        self.m = m
-        self.canvas = canvas
-        self.id = canvas.create_oval(-1*r, -1*r, r, r, fill=color)
-        self.canvas.move(self.id, pos.x, pos.y)
+
+##Fonction de mise à jour
+def update():
+    for i, individu1 in enumerate(LIndiv) :
+        bouge_indiv(individu1)
+        rebond_bord(individu1,eBord)
+        for individu2 in LIndiv[i+1:] :
+            if touche_indiv(individu1, individu2) :
+                rebond_indiv(individu1,individu2, eIndiv)
+                
+    tk.update_idletasks()
+    tk.after(TpsRaffraichissement, update)
 
 
-class mur:
-    def __init__(self, pos, dimension, angle, canvas, color):
-        self.pos = pos
-        self.dimension = dimension
-        self.angle = angle #l'angle est mesuré dans le sens horaire
-        self.canvas = canvas
-
-            
-        
-        
+##Initialisation
+init_indiv()
+tk.after(TpsRaffraichissement, update)
+tk.mainloop()
