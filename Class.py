@@ -51,14 +51,6 @@ class vect2D:
     def __repr__(self):
         return "[{},{}]".format(self.x,self.y)
     
-## Méthodes:
-    def norme(self):
-        return sqrt(self.x**2 + self.y**2)
-    def p_scal(vecteur1, vecteur2):
-        return vecteur1.x * vecteur2.x + vecteur1.y * vecteur2.y
-    def projection(a, b): #projection du vecteur a sur le vecteur b
-        return b - p_scal(a, b) * b
-    
     
 class randvect2D(vect2D):
     def __init__(self, xmin, xmax, ymin, ymax) :
@@ -75,11 +67,7 @@ class individu:
         self.canvas = canvas
         self.id = canvas.create_oval(-1*r, -1*r, r, r, fill=color)
         self.canvas.move(self.id, pos.x, pos.y)
-## Méthodes :  
-    def distance(individu1, individu2):
-        return norme(individu1 - individu2)
-    def touche(individu1, individu2):
-        return distance(individu1, individu2) <= individu1.r + individu2.r
+
 
 class mur:
     def __init__(self, pos, dimension, angle, canvas, color):
