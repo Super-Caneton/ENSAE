@@ -36,8 +36,8 @@ class vect2D:
         nVecteur = vect2D()
         nVecteur.x = self.x
         nVecteur.y = self.y
-        nVecteur.x += scalaire
-        nVecteur.y += scalaire
+        nVecteur.x *= scalaire
+        nVecteur.y *= scalaire
         return nVecteur
     def __mul__(self, scalaire):
         nVecteur = vect2D()
