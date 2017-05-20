@@ -66,9 +66,11 @@ class vect2D:
 
 ##Méthodes
     def norme(self) :
+        '''Renvoit la norme d'un vecteur'''
         return sqrt(self.x**2+self.y**2)
         
     def normalise(self) :
+        '''Renvoit le vecteur de norme 1 colineaire'''
         if(self.norme() != 0) :
             return (1/self.norme())*self
         return self
