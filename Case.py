@@ -2,7 +2,7 @@
 ## Permet la gestion des options sur les cases dans le terrain
 
 import numpy as np
-from math import *
+from math import floor
 from Vect2D import *
 import Variables as Var
 
