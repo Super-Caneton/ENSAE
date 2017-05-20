@@ -1,8 +1,8 @@
 ## Fichier Ligne.py
 ## ??
 
-from Vect2D import*
 import numpy as np
+from Vect2D import *
 import Variables as Var
 
 class ligne:
