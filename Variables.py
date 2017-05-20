@@ -20,7 +20,7 @@ LSortie = []    # Liste des sorties sous la forme [x,y]
 xPointeur = -1    # abscisse du curseur ?? 
 yPointeur = -1    # ordonnée du curseur ??
 nvCase = True     # boleen qui renvoit true lorsqu'une case est sélectionnée
-typeCase = 0      # type de la case (-1 = mur, 0 = normal, 1 = sortie) ??
+typeCase = 0      # type de la case (-1 = infranchissable, 0 = case normale, 1 = sortie, (-2=danger, 2=escalier ?)
 
 # Variables globale du stockage des donnees
     # Attention, pour demander la case à la colonne x et ligne y, il faut écrire TCase[y,x]
