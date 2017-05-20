@@ -9,7 +9,7 @@ class vect2D:
         self.x = x
         self.y = y
         
-    # Addition de vecteurs
+    # Addition
     def __iadd__(self, vecteur):
         '''Gestion de +='''
         nVecteur = vect2D()
@@ -38,7 +38,7 @@ class vect2D:
         nVecteur -= vecteur
         return nVecteur
         
-    # Multiplication par un scalaire
+    # Multiplication
     def __imul__(self, scalaire):
         '''Gestion de la multiplication d'un vecteur par un scalaire via l'operateur *='''
         nVecteur = vect2D()
@@ -58,7 +58,7 @@ class vect2D:
         '''Gestion de la multiplication d'un vecteur par un scalaire'''
         return self * scalaire
 
-    ## Affichage d'un vecteur
+    # Affichage d'un vecteur
     def __str__(self):
         return "[{},{}]".format(self.x,self.y)
     def __repr__(self):
