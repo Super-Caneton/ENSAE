@@ -1,53 +1,49 @@
+## Fichier Variables.py
+## Ce fichier contient toutes les variables globales qui font fonctionner le code
 import numpy as np
-
 from Vect2D import*
 
-##Variables
 
-#Rappel : x = abscisse, y = ordonnée, (0,0) en haut à gauche
+## Variables concernant les individus
+LIndiv = []     # Liste des individus sur le terrain
+NIndiv = 100    # Nombre d'individu à créer au début de la simulation
+rIndiv = 5      # Rayon de chaque individu
+vminIndiv = 0.5 # Vitesse minimale d'un individu
+vmaxIndiv = 2   # Vitesse maximale d'un individu
 
-#Variable de la fenêtre
-titre="Simulateur de foule from scratch"
-largeur=50
-hauteur=30
-
-TpsRaffraichissement=10 #Temps de raffraichissement en ms
+## Variables concernant le terrain :
+LSortie = []    # Liste des sorties sous la forme [x,y]
 
 #Variables relatif à la selection des cases
+    # x = abscisse, y = ordonnée, (0,0) en haut à gauche
+    # Par défaut, si aucune case n'est selectionnée, on pointe vers la case (-1,-1)
+xPointeur = -1    # abscisse du curseur ?? 
+yPointeur = -1    # ordonnée du curseur ??
+nvCase = True     # boleen qui renvoit true lorsqu'une case est sélectionnée
+typeCase = 0      # type de la case (-1 = mur, 0 = normal, 1 = sortie) ??
 
-#Coordonnées de la case selectionnée (-1,-1) si aucune
-xPointeur = -1
-yPointeur = -1
+# Variables globale du stockage des donnees
+    # Attention, pour demander la case à la colonne x et ligne y, il faut écrire TCase[y,x]
+TCase = np.array([])                        # Stocke les cases sous forme de tableau 
+Tdirection = np.array([[vect2D()]*largeur]*hauteur,vect2D)  # Stocke le vecteur direction de chacune des cases dans un tableau
+Tligne = np.array([])                       # Stocke ?? sous forme de tableau
+Ttexte = np.array([])                       # Stocke les distances minimum de chaque case à la sortie sous forme de tableau
 
-#False : Voisin de Von Neumann => Croix
-#True : Voisin de Moore => Carré
-typePinceau = False
 
-pause = False #Met en pause le mouvement des individus
-grilleTerrain = False
-mode = 1
+# Variable de la fenêtre
+titre = "Simulateur de mouvement de foule"  # titre du l'interface graphique
+largeur = 50                                # largeur de l'interface
+hauteur = 30                                # hauteur de l'interface
+dimCase = 20                                # Taille d'une case en pixels
 
-nvCase = True #Détermine si on a selectionné une nouvelle case
-typeCase = 0
+# Variable de gestion des paramètres dans l'interface
+grilleTerrain = False                       # Boleen qui permet d'afficher une grille sur le terrain
+typePinceau = False                         # Boleen qui permet de selectionner le type de pinceau (0 = Croix, 1 = Carre) 
+mode = 1                                    # Permet de selectionner un mode d'affichage (??)
 
-#Variables concernant les cases
-TCase = np.array([]) #Pour demander la case à la xième colonne, yième ligne écrire TCase[y,x]
-dimCase = 20 #Taille de la case en pixels
-
-#Variables concernant les sorties 
-LSortie = [] #objets de la forme [x,y]
-
-Tdirection = np.array([[vect2D()]*largeur]*hauteur,vect2D)  #Tableau des vecteur direction
-Tligne = np.array([])
-
-Ttexte = np.array([])
-
-#Variables concernant les individus
-LIndiv=[]
-NIndiv=100
-rIndiv=5
-vminIndiv=0.5
-vmaxIndiv=2
+# Gestion du temps
+TpsRaffraichissement=10                     # Temps de raffraichissement en ms
+pause = False                               # Boleen pour mettre en pause le mouvement des individus
 
 #Statistique
-dMaxCase=-1 #Distance maximale d'une case d'une sortie
+dMaxCase = -1                               # Distance maximale d'une case d'une sortie
