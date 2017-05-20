@@ -42,7 +42,7 @@ typePinceau = False                         # Boleen qui permet de selectionner 
 mode = 1                                    # Permet de selectionner un mode d'affichage (??)
 
 # Gestion du temps
-TpsRaffraichissement=10                     # Temps de raffraichissement en ms
+TpsRaffraichissement = 10                   # Temps de raffraichissement en ms
 pause = False                               # Boleen pour mettre en pause le mouvement des individus
 
 #Statistique
