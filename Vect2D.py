@@ -73,7 +73,7 @@ class vect2D:
             return (1/self.norme())*self
         return self
         
-        
+## Fonctions sur les vecteurs :      
         
 def p_scal(vecteur1, vecteur2):
     '''Calcule le produit scalaire de deux vecteurs'''
