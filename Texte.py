@@ -7,7 +7,7 @@ import Variables as Var
 
 class texte:
     '''permet de definir des mots sur le graphique avec une position précise'''
-    def __init__(self, pos=vect2D(), mot="", canvas="", color="black"):
+    def __init__(self, pos = vect2D(), mot = "", canvas = "", color = "black"):
         self.pos = pos
         self.mot = mot
         self.canvas = canvas
