@@ -1,7 +1,7 @@
 ## Fichier Variables.py
 ## Ce fichier contient toutes les variables globales qui font fonctionner le code
 import numpy as np
-from Vect2D import*
+from Vect2D import *
 
 
 ## Variables concernant les individus
