@@ -43,6 +43,7 @@ mode = 1                                    # Permet de selectionner un mode d'a
 
 # Gestion du temps
 TpsRaffraichissement = 10                   # Temps de raffraichissement en ms
+tps = 0                                     # Temps de référence pour le chrono
 pause = False                               # Boleen pour mettre en pause le mouvement des individus
 
 #Statistique
