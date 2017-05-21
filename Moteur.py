@@ -45,6 +45,7 @@ def stat_dMaxCase(label):
                         infini = True
                     elif(Var.TCase[y,x].score > Var.dMaxCase) :
                         Var.dMaxCase = Var.TCase[y,x].score
+    # Mise à jour de la fenêtre graphique
     if Var.dMaxCase == -1 :
         label.config(text = "∞")
     else :
@@ -53,7 +54,7 @@ def stat_dMaxCase(label):
     return
 
 def stat_nbIndiv(label):
-    '''Permet de mettre à jour le nombre d'individus encore sur le terrain'''
+    '''Permet de mettre à jour la fenêtre graphique en affichant le nombre d'individus encore sur le terrain'''
     label.config(text = str(len(Var.LIndiv)))
     label.pack()
     return
