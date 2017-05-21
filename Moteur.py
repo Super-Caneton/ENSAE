@@ -81,6 +81,7 @@ def change_distance_action(C, d):
     
 def change_case_action(C, d = 0):
     '''Change le type de case de la case C'''
+    #NB : le paramètre d n'est pas utilisé
     if(Var.TCase[C.y, C.x].type == 1) :
         Var.LSortie.remove([C.x, C.y])
     Var.TCase[C.y, C.x].score = -1
@@ -90,41 +91,43 @@ def change_case_action(C, d = 0):
 
 def voisins(x, y, Lcondition, t):
     '''Renvoie la liste des voisins de la case (x,y) qui satisfont une liste de conditions'''
-    #t=False : voisin de Von Neumann
-    #t=True : Voisin de Moore
+    # Si t = False : on considère les voisins avec une frontière commune avec notre case
+    # Si t = True : on considère les voisins diagonaux en plus
     L = []
     V = [vect2D(x - 1, y), vect2D(x + 1, y), vect2D(x, y - 1), vect2D(x, y + 1)]
-    if(t) :
+    if t :
         V= V + [vect2D(x - 1,y - 1), vect2D(x - 1,y + 1), vect2D(x + 1,y - 1), vect2D(x + 1,y + 1)]
-    for C in V : # C : coordonnees de la forme vect2D(x,y)
-        
-        if 0 <= C.x and C.x < Var.largeur and 0 <= C.y and C.y < Var.hauteur: # Verifie que le voisin est dans le domaine du terrain
-            if(Var.TCase[C.y, C.x].explore == False) : # Verifie que la case n'a pas deja ete exploree
+    for C in V : # C est un vecteur de coordonnées de la forme vect2D(x,y)
+        if 0 <= C.x and C.x < Var.largeur and 0 <= C.y and C.y < Var.hauteur : # On vérifie que le voisin est dans le domaine du terrain
+            if Var.TCase[C.y, C.x].explore == False : # On vérifie que la case n'a pas déjà été explorée
                 flag = True
-                for condition in Lcondition : # On verifie que le voisin verifie toutes les conditions
+                for condition in Lcondition : # On vérifie que le voisin vérifie toutes les conditions de Lcondition
                     if not(condition(C)) :
                         flag = False
                         break
-                if(flag): # Si c'est le cas, on l'ajoute a la liste des voisins disponibles
+                if(flag): # Si c'est le cas, on l'ajoute à la liste des voisins disponibles
                     L.append(C)
                     Var.TCase[C.y, C.x].explore = True
     return L
 
 def reset_case():
-    '''Remarque les cases comme inexplorees, utile pour reparcourir les cases'''
+    '''Remarque les cases comme inexplorées, utile pour refaire un parcours des cases'''
     for x in range(Var.largeur):
         for y in range(Var.hauteur):
             Var.TCase[y, x].explore = False
     return
 
-##
 def wavefront(x, y, Lcondition, Laction, maxd, t):
-    '''Algorithme WaveFront, point de départ (x,y), Choisit les voisins selon Lcondition et leur applique Laction dans un rayon maxd'''
-    #x,y coordonnées de la case de départ
-    #t=False : voisin de Von Neumann
-    #t=True : Voisin de Moore
-    d=0
-    L=[vect2D(x, y)]
+    '''Algorithme WaveFront, point de départ (x,y), Choisit les voisins selon Lcondition et leur applique Laction dans un rayon maxd
+    *param : -> x,y coordonnées de la case de départ 
+             -> Lcondition une liste de condition à vérifier
+             -> Laction
+             -> maxd
+             -> t : Si t = False : on considère les voisins avec une frontière commune avec notre case
+                    Si t = True : on considère les voisins diagonaux en plus
+    '''
+    d = 0
+    L = [vect2D(x, y)]
     while d < maxd and len(L) != 0 :
         V = []
         for C in L : #C : coordonnées de la forme vect2D(x,y)
@@ -158,33 +161,30 @@ def direction() :
                 V = voisins(x, y, [pas_mur_condition], False)
                 reset_case()
                 #On va calculer le vecteur à prendre : le gradient de distance
-                
-                #Fonctions auxiliaires
                 def aux1():
+                    '''Fonction auxiliaire qui gère le cas où '''
                     s = Var.TCase[y, x].score
                     vx = 0
                     vy = 0
                     for v in V :
                         if Var.TCase[v.y, v.x].score < s :
-                            vx = vx + v.x-x
-                            vy = vy + v.y-y
+                            vx = vx + v.x - x
+                            vy = vy + v.y - y
                     return (vx, vy)
                 def aux2():
+                    '''Fonction auxiliaire qui gère le cas où on est en contact avec un obstacle'''
                     s = Var.TCase[y, x].score
                     vx = 0
                     vy = 0
                     for v in V :
-                        if Var.TCase[v.y, v.x].score < s :
+                        if Var.TCase[v.y, v.x].score < s : # On choisit au hasard un voisin disponible en fonction du gradient
                             vx = v.x - x
                             vy = v.y - y
                     return (vx, vy)
-                
-                #Lorsqu'il n'y a pas de problème
-                if len(V) == 4 :
+                if len(V) == 4 : # Tous les voisins sont des cases accessibles, on calcule un gradient discret avec les cases autour de celle qu'on considère
                     vx = Var.TCase[y, x - 1].score - Var.TCase[y, x + 1].score
                     vy = Var.TCase[y - 1, x].score - Var.TCase[y + 1, x].score
-                    #Évite aux individus de rester bloqués dans les coins
-                    if Var.TCase[y + np.sign(vy), x + np.sign(vx)].type < 0 : 
+                    if Var.TCase[y + np.sign(vy), x + np.sign(vx)].type < 0 : # On évite aux individus de rester bloqués dans les coins si ils se dirigent vers un mur ??
                         (vx, vy) = aux2()
                 elif len(V) == 2 :
                     #Problème de murs en coin
