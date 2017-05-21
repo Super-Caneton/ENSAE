@@ -34,14 +34,14 @@ def init_indiv(terrain):
             y = rd.uniform(Var.rIndiv, (Var.hauteur - 1) * Var.dimCase - Var.rIndiv)
             if Var.TCase[floor(y / Var.dimCase), floor(x / Var.dimCase)].type >= 0 :
                 break
-        pose_indiv(x,y,terrain)
+        pose_indiv(x, y, terrain)
     return
     
-def pose_indiv(x,y,terrain) :
-    '''Pose un inidividu sur le terrain en x,y'''
-    pos = vect2D(x,y)
-    dpos = vect2D(0,0)
-    indiv=individu(pos, dpos, rd.uniform(Var.vminIndiv,Var.vmaxIndiv), Var.rIndiv, terrain,"red")
+def pose_indiv(x, y, terrain):
+    '''Pose un inidividu sur le terrain en (x,y)'''
+    pos = vect2D(x, y)
+    dpos = vect2D(0, 0)
+    indiv=individu(pos, dpos, rd.uniform(Var.vminIndiv, Var.vmaxIndiv), Var.rIndiv, terrain,"red")
     Var.LIndiv.append(indiv)
     return
 
@@ -57,17 +57,17 @@ def sortir_indiv(terrain):
     for individu in Var.LIndiv :
         x = floor(individu.pos.x / Var.dimCase)
         y = floor(individu.pos.y / Var.dimCase)
-        if Var.TCase[y,x].type == 1 :
+        if Var.TCase[y, x].type == 1 :
             terrain.delete(individu.id)
             Var.LIndiv.remove(individu)
     return 
     
-##Gestion des collisions avec les murs, les bords et les autres individus
-def touche_indiv(individu1, individu2) :
+# Fonction de gestion des collisions avec les murs, les bords et les autres individus
+def touche_indiv(individu1, individu2):
     '''Test si deux individus se touchent'''
     return (individu1.pos - individu2.pos).norme() <= individu1.r + individu2.r
 
-def rebond_indiv(individu1, individu2) : 
+def rebond_indiv(individu1, individu2): 
     '''Lorsqu'il y a collision entre deux individu, calcule les vitesses de chacun après le choc'''
     n = individu1.pos - individu2.pos
     n1 = projection(individu1.dpos, n)
@@ -75,7 +75,6 @@ def rebond_indiv(individu1, individu2) :
     
     t1 = individu1.dpos - n1
     t2 = individu2.dpos - n2
-    
     #On conserve les composantes tangentielles et on échange les composantes normales
     individu1.dpos = (t1 + n2)
     individu2.dpos = (t2 + n1)
@@ -87,14 +86,14 @@ def rebond_mur(individu):
     pos = individu.pos
     r = individu.r
     c = Var.TCase[floor(pos.y / Var.dimCase), floor(pos.x / Var.dimCase)]
-    if(c.type == -1):
+    if c.type == -1 :
         if pos.x -r < c.pos.x or pos.x + r > c.pos.x + Var.dimCase :
             individu.dpos.x *= -1
         if pos.y -r < c.pos.y or pos.y + r > c.pos.y + Var.dimCase :
             individu.dpos.y *= -1
     return
     
-def rebond_bord(individu) :
+def rebond_bord(individu):
     '''Lorsqu'un individu touche un mur, on le fait rebondir en inversant sa vitesse selon les axes de chocs'''
     pos = individu.pos
     r = individu.r
@@ -105,16 +104,16 @@ def rebond_bord(individu) :
     return
 
 # Programme de gestion des mouvements
-def bouge_indiv() :
+def bouge_indiv():
     '''Gestion du mouvement des individus en fonction de l'environnement de chacun'''
     for i, individu1 in enumerate(Var.LIndiv) :
-        x=int(individu1.pos.x/Var.dimCase)
-        y=int(individu1.pos.y/Var.dimCase)
-        individu1.dpos = individu1.dpos.normalise()*np.random.normal(individu1.vmoy, 0.2)
+        x = floor(individu1.pos.x / Var.dimCase)
+        y = floor(individu1.pos.y / Var.dimCase)
+        individu1.dpos = individu1.dpos.normalise() * np.random.normal(individu1.vmoy, 0.2)
         individu1.dpos += Var.Tdirection[y,x]
         for individu2 in Var.LIndiv[i+1:] :
             if touche_indiv(individu1, individu2) :
-                rebond_indiv(individu1,individu2)
+                rebond_indiv(individu1, individu2)
         rebond_bord(individu1)
         rebond_mur(individu1)
         individu1.bouge()
