@@ -1,5 +1,5 @@
 ## Fichier Vect2D.py
-## Ce fichier contient une classe eponyme et des methodes permettant d'effectuer les operations de bases sur des vecteurs à deux dimensions.
+## Ce fichier contient une classe éponyme et des méthodes permettant d'effectuer les operations de bases sur des vecteurs à deux dimensions.
 from math import *
 
 class vect2D:
@@ -64,13 +64,13 @@ class vect2D:
     def __repr__(self):
         return "[{},{}]".format(self.x,self.y)
 
-##Méthodes
+    # Méthodes
     def norme(self) :
         '''Renvoit la norme d'un vecteur'''
         return sqrt(self.x**2+self.y**2)
         
     def normalise(self) :
-        '''Renvoit le vecteur de norme 1 colineaire'''
+        '''Renvoit le vecteur normalisé'''
         if(self.norme() != 0) :
             return (1 / self.norme()) * self
         return self
