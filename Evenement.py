@@ -107,6 +107,7 @@ def recalcule(label) :
 ## bouton_indiv
 def place_indiv(terrain, label):
     '''Place des individus aux hasard sur le terrain et met a jour le nombre d'individus affiché par label'''
+    supprime_indiv(terrain)
     n = label.get()
     if(n == ""):
         Var.NIndiv = 0
