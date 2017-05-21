@@ -79,12 +79,6 @@ def change_distance_action(C, d):
         Var.TCase[C.y, C.x].score = d
     return 
     
-def augmente_distance_action(C, d = 0): #Inutilisée
-    '''Ajoute une distance arbitraire à la case C'''
-    if Var.TCase[C.y, C.x].score > 0 :
-        Var.TCase[C.y, C.x].score += 10
-    return
-    
 def change_case_action(C, d = 0):
     '''Change le type de case de la case C'''
     if(Var.TCase[C.y, C.x].type == 1) :
@@ -94,8 +88,6 @@ def change_case_action(C, d = 0):
     Var.TCase[C.y, C.x].raffraichir()
     return
 
-
-##
 def voisins(x, y, Lcondition, t):
     '''Renvoie la liste des voisins de la case (x,y) qui satisfont une liste de conditions'''
     #t=False : voisin de Von Neumann
