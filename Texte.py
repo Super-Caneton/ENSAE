@@ -8,11 +8,11 @@ import Variables as Var
 class texte:
     '''permet de definir des mots sur le graphique avec une position précise'''
     def __init__(self, pos = vect2D(), mot = "", canvas = "", color = "black"):
-        self.pos = pos
-        self.mot = mot
-        self.canvas = canvas
-        self.color = color
-        self.id = canvas.create_text(pos.x, pos.y, text = mot)
+        self.pos = pos          # La position du centre du texte
+        self.mot = mot          # Le mot(ou la phrase) que l'on doit afficher
+        self.canvas = canvas    # Le Canevas sur lequel on dessine
+        self.color = color      # La couleur du texte
+        self.id = canvas.create_text(pos.x, pos.y, text = mot) #Représentation graphique
         
     def raffraichir(self):
         self.canvas.coords(self.id, self.pos.x, self.pos.y)
