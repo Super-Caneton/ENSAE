@@ -19,14 +19,14 @@ vmaxIndiv = 2                               # Vitesse maximale d'un individu
 # Variables concernant le terrain :
 LSortie = []    # Liste des sorties sous la forme [x,y]
 
-#Variables relatif à la selection des cases
-    # x = abscisse, y = ordonnée, (0,0) en haut à gauche
+#Variables relatif à la selection des cases que l'on va parcourir
+    # x = abscisse, y = ordonnée, (0,0) représente la case en haut à gauche
     # Par défaut, si aucune case n'est selectionnée, on pointe vers la case (-1,-1)
 xPointeur = -1                              # abscisse du curseur en case
 yPointeur = -1                              # ordonnée du curseur en case
 nvCase = True                               # boleen qui renvoit true lorsqu'une case est sélectionnée
 typeCase = 0                                # type de la case (-1 = infranchissable, 0 = case normale, 1 = sortie,
-placeIndiv = False                          # Dois t-on placer un individu ou pas
+placeIndiv = False                          # Sur une case, true si on peut placer un individu
 
 # Variables globale du stockage des donnees
     # Attention, pour demander la case à la colonne x et ligne y, il faut écrire TCase[y,x]
