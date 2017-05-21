@@ -30,9 +30,9 @@ p2.pack(side = RIGHT, fill=Y)
 menubar = Menu(tk)
     
 menu1 = Menu(menubar, tearoff=0)
-menu1.add_command(label="Nouveau", command=lambda : nouveau(terrain))
+menu1.add_command(label="Nouveau", command=lambda : (nouveau(terrain), reset_temps()))
 menu1.add_command(label="Enregistrer sous...", command=enregistrer_sous)
-menu1.add_command(label="Charger", command= lambda : charger(terrain))
+menu1.add_command(label="Charger", command= lambda : (charger(terrain),reset_temps()))
 menu1.add_separator()
 menu1.add_command(label="Quitter", command=tk.destroy)
 menubar.add_cascade(label="Fichier", menu=menu1)
@@ -91,7 +91,7 @@ bouton_recalcule = Button(p1, text = "Recalculer le champ", command = lambda : r
 bouton_recalcule.pack(fill=X)
 
 #Bouton pour lancer une simulation automatique
-bouton_simulation = Button(p1, text = "Démarrer la simulation", command = lambda : (recalcule(label_dMaxCase), place_indiv(terrain, nb_indiv)))
+bouton_simulation = Button(p1, text = "Démarrer la simulation", command = lambda : (recalcule(label_dMaxCase), place_indiv(terrain, nb_indiv), reset_temps()))
 bouton_simulation.pack(fill=X)
 
 #Boutons relatifs aux individus
@@ -100,7 +100,7 @@ Frame(p1, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
 Label(p1, text = "Individus").pack()
 
 #Place des individus au hasard
-bouton_indiv = Button(p1, text = "Placer au hasard", command = lambda : place_indiv(terrain, nb_indiv))
+bouton_indiv = Button(p1, text = "Placer au hasard", command = lambda : (place_indiv(terrain, nb_indiv),reset_temps()))
 bouton_indiv.pack(fill=X)
 
 #Détermine le nombre d'individu à placer entre 0 et 200
@@ -110,7 +110,7 @@ nb_indiv = Spinbox(p1, from_=0, to=200, textvariable=nb_indiv_defaut, justify='c
 nb_indiv.pack(fill=X)
 
 #Supprime tous les individus du terrain
-bouton_indiv2 = Button(p1, text = "Supprimer", command = lambda : supprime_indiv(terrain))
+bouton_indiv2 = Button(p1, text = "Supprimer", command = lambda : (supprime_indiv(terrain),reset_temps()))
 bouton_indiv2.pack(fill=X)
 
 #Met en pause le mouvement des individus
