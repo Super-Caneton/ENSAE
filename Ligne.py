@@ -1,16 +1,16 @@
 ## Fichier Ligne.py
-## ??
+## Fourni la gestion des lignes de champ sur le terrain
 
 import numpy as np
 from Vect2D import *
 import Variables as Var
 
-class ligne:
+class ligne :
     def __init__(self, pos1 = vect2D(), pos2 = vect2D(), canvas = "", color = "black") :
-        self.pos1 = pos1        # ??
-        self.pos2 = pos2        # ??
-        self.canvas = canvas    # ?? 
-        self.color = color      # ??
+        self.pos1 = pos1        # Position du début de la flèche
+        self.pos2 = pos2        # Position de la fin de la flèche
+        self.canvas = canvas    # Le Canevas sur lequel on dessine
+        self.color = color      # Couleur de la flèche
         self.id = canvas.create_line(pos1.x,pos1.y,pos2.x,pos2.y, fill=color, arrow="last") # ??
         
     def raffraichir(self) :
