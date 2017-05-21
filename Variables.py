@@ -10,11 +10,11 @@ hauteur = 30                                # hauteur du terrain en nombre de ca
 dimCase = 20                                # Taille d'une case en pixels
 
 # Variables concernant les individus
-LIndiv = []     # Liste des individus sur le terrain
-NIndiv = 100    # Nombre d'individu à créer au début de la simulation
-rIndiv = 3      # Rayon de chaque individu
-vminIndiv = 0.5 # Vitesse minimale d'un individu
-vmaxIndiv = 2   # Vitesse maximale d'un individu
+LIndiv = []                                 # Liste des individus sur le terrain
+NIndiv = 100                                # Nombre d'individu à créer au début de la simulation
+rIndiv = 3                                  # Rayon de chaque individu
+vminIndiv = 0.5                             # Vitesse minimale d'un individu
+vmaxIndiv = 2                               # Vitesse maximale d'un individu
 
 # Variables concernant le terrain :
 LSortie = []    # Liste des sorties sous la forme [x,y]
@@ -22,11 +22,11 @@ LSortie = []    # Liste des sorties sous la forme [x,y]
 #Variables relatif à la selection des cases
     # x = abscisse, y = ordonnée, (0,0) en haut à gauche
     # Par défaut, si aucune case n'est selectionnée, on pointe vers la case (-1,-1)
-xPointeur = -1      # abscisse du curseur en case
-yPointeur = -1      # ordonnée du curseur en case
-nvCase = True       # boleen qui renvoit true lorsqu'une case est sélectionnée
-typeCase = 0        # type de la case (-1 = infranchissable, 0 = case normale, 1 = sortie, (-2=danger, 2=escalier ?)
-placeIndiv = False  # Dois t-on placer un individu ou pas
+xPointeur = -1                              # abscisse du curseur en case
+yPointeur = -1                              # ordonnée du curseur en case
+nvCase = True                               # boleen qui renvoit true lorsqu'une case est sélectionnée
+typeCase = 0                                # type de la case (-1 = infranchissable, 0 = case normale, 1 = sortie,
+placeIndiv = False                          # Dois t-on placer un individu ou pas
 
 # Variables globale du stockage des donnees
     # Attention, pour demander la case à la colonne x et ligne y, il faut écrire TCase[y,x]
