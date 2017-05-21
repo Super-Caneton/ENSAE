@@ -6,7 +6,7 @@ from math import floor
 from Vect2D import *
 import Variables as Var
 
-class case:
+class case :
     def __init__(self, pos = vect2D(), dim = 0, type = 0, score = 0, canvas = "", color = "ivory", explore = False, grille = False):
         self.pos = pos          # Position de la case
         self.dim = dim          # Dimension de la case en pixels
@@ -19,18 +19,18 @@ class case:
         self.id = canvas.create_rectangle(0, 0, dim, dim, fill = color, outline = color) # representation graphique de la case
         self.canvas.move(self.id, pos.x * dim, pos.y * dim) #Positionnement de la case
     
-    def raffraichir(self) :
+    def raffraichir(self):
         '''raffraichit la couleur d'une case'''
-        if(self.type == -1) :
+        if self.type == -1 :
             self.color = "black"
-        elif(self.type == 1) :
+        elif self.type == 1 :
             self.color = "green"
-        elif(self.type == -2) :
+        elif self.type == -2 :
             self.color = "red"
         else :
             self.color = "ivory"
-        if(self.grille):
-            if(self.color == "black") :
+        if self.grille :
+            if self.color == "black" :
                 self.canvas.itemconfig(self.id, fill = self.color, outline = "ivory")
             else :
                 self.canvas.itemconfig(self.id, fill = self.color, outline = "black")
@@ -40,17 +40,17 @@ class case:
     
     def degrade(self, fg, bg, maxd):
         '''Change la couleur en faisant un dégradé entre fg et bg selon la distance du plus court chemin et de la distance maximum'''
-        def blend(i,fg,bg) :
+        def blend(i,fg,bg):
             ''' interpolation linéaire de la couleur'''
             return (floor((1 - i) * fg[0] + i * bg[0]), int((1 - i) * fg[1] + i * bg[1]), int((1 - i) * fg[2] + i * bg[2]))
         col = blend(self.score / maxd, fg, bg)
         if(self.grille):
-            if (col[0] > 255 or col[1] > 255 or col[2] > 255) :
+            if col[0] > 255 or col[1] > 255 or col[2] > 255 :
                 self.canvas.itemconfig(self.id, fill = "#%02x%02x%02x" % bg, outline = "black")
             else :
                 self.canvas.itemconfig(self.id, fill = "#%02x%02x%02x" % col, outline = "black")
         else :
-            if (col[0] > 255 or col[1] > 255 or col[2] > 255) :
+            if col[0] > 255 or col[1] > 255 or col[2] > 255 :
                 self.canvas.itemconfig(self.id, fill = "#%02x%02x%02x" % bg, outline = "#%02x%02x%02x" % bg)
             else :
                 self.canvas.itemconfig(self.id, fill = "#%02x%02x%02x" % col, outline = "#%02x%02x%02x" % col)
@@ -61,7 +61,7 @@ def init_case(terrain):
     Var.TCase = np.array([[case(canvas = terrain)] * Var.largeur] * Var.hauteur, case)
     for x in range(Var.largeur):
         for y in range(Var.hauteur):
-            pos = vect2D(x,y)
+            pos = vect2D(x, y)
             c = case(pos, Var.dimCase, 0, -1, terrain, "ivory", False)
-            Var.TCase[y,x] = c
+            Var.TCase[y, x] = c
     return
