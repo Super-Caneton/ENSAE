@@ -73,8 +73,8 @@ def pas_mur_condition(C):
 
 def change_distance_action(C, d):
     '''Atribue une distance en fonction de d à la case C'''
-    if Var.TCase[C.y, C.x].score >= 0 :
-        Var.TCase[C.y, C.x].score = min(d, Var.TCase[C.y, C.x].score)
+    if Var.TCase[C.y, C.x].score >= 0 : # cela signifie qu'on a déjà calculé la distance de cette case à une sortie
+        Var.TCase[C.y, C.x].score = min(d, Var.TCase[C.y, C.x].score) # on selectionne la plus proche
     else :
         Var.TCase[C.y, C.x].score = d
     return 
