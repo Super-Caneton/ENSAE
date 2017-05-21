@@ -129,6 +129,11 @@ def change_pause(self):
     self.pack(fill=X)
     return
 
+## label_temps
+def reset_temps() :
+    '''Remet le chrono à zéro'''
+    Var.tps = 0
+    return
 
 ##Évènements
 
