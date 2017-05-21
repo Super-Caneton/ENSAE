@@ -29,11 +29,11 @@ def init_indiv(terrain):
     supprime_indiv(terrain)
     for i in range(Var.NIndiv):
         # Afin d'éviter que des individus se retrouve a moitie dans un mur on genere sur un intervalle ou chacun d'eux est pleinement dans une case
-        x = rd.uniform(Var.rIndiv, (Var.largeur - 1) * Var.dimCase - Var.rIndiv)
-        y = rd.uniform(Var.rIndiv, (Var.hauteur - 1) * Var.dimCase - Var.rIndiv)
-        while Var.TCase[floor(y / Var.dimCase), floor(x / Var.dimCase)].type < 0 :
+        while 1 :
             x = rd.uniform(Var.rIndiv, (Var.largeur - 1) * Var.dimCase - Var.rIndiv)
             y = rd.uniform(Var.rIndiv, (Var.hauteur - 1) * Var.dimCase - Var.rIndiv)
+            if(Var.TCase[floor(y / Var.dimCase), floor(x / Var.dimCase)].type < 0) :
+                break
         pose_indiv(x,y,terrain)
     return
     
