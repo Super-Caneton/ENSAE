@@ -9,7 +9,7 @@ from Texte import *
 from Ligne import *
 from Individu import *
 
-
+# Fonctions de modification du terrain et des cases qui agissent sur le texte et le champs vectoriel
 def terrain_vierge(terrain):
     '''Cree un terrain vierge'''
     supprime_indiv(terrain)
@@ -31,48 +31,22 @@ def creer_sortie(x, y):
         change_case_action(vect2D(x, y))
         Var.LSortie.append([x, y])
     return
-    
-###Fonctions sur les statistiques :
-def stat_dMaxCase(label):
-    '''Permet de mettre à jour la plus grande distance entre une case et la sortie la plus proche notée dMaxCase'''
-    Var.dMaxCase = -1
-    infini = False
+
+def reset_case():
+    '''Remarque les cases comme inexplorées, utile pour refaire un parcours des cases'''
     for x in range(Var.largeur):
         for y in range(Var.hauteur):
-            if not(infini) :
-                if Var.TCase[y,x].type ==0 :
-                    if Var.TCase[y,x].score==-1 :
-                        infini = True
-                    elif(Var.TCase[y,x].score > Var.dMaxCase) :
-                        Var.dMaxCase = Var.TCase[y,x].score
-    # Mise à jour de la fenêtre graphique
-    if Var.dMaxCase == -1 :
-        label.config(text = "∞")
-    else :
-        label.config(text = str(Var.dMaxCase))
-    label.pack()
+            Var.TCase[y, x].explore = False
     return
 
-def stat_nbIndiv(label):
-    '''Permet de mettre à jour la fenêtre graphique en affichant le nombre d'individus encore sur le terrain'''
-    label.config(text = str(len(Var.LIndiv)))
-    label.pack()
-    return
-
-##Moteur : Potential Field
-
-
-##Conditions pour la fonction voisins prenant en argument un vect2D
-#C : coordonnées de la forme vect2D(x,y)
-
+# Fonction de test de condition :
 def pas_mur_condition(C):
     '''boleen qui renvoit vrai si la case n'est pas un mur'''
     return (Var.TCase[C.y, C.x].type != -1)
     
-##Actions pour la fonction voisins prenant en argument un vect2D et un int
-
+# Fonction qui réalisent des actions :
 def change_distance_action(C, d):
-    '''Atribue une distance en fonction de d à la case C'''
+    '''Atribue une distance du plus court chemin à la case C en fonction de d, la nouvelle distance à une autre sortie'''
     if Var.TCase[C.y, C.x].score >= 0 : # cela signifie qu'on a déjà calculé la distance de cette case à une sortie
         Var.TCase[C.y, C.x].score = min(d, Var.TCase[C.y, C.x].score) # on selectionne la plus proche
     else :
@@ -89,6 +63,8 @@ def change_case_action(C, d = 0):
     Var.TCase[C.y, C.x].raffraichir()
     return
 
+# Fonction de calcul du champs scalaire
+# ===============================================================================================================
 def voisins(x, y, Lcondition, t):
     '''Renvoie la liste des voisins de la case (x,y) qui satisfont une liste de conditions'''
     # Si t = False : on considère les voisins avec une frontière commune avec notre case
@@ -110,15 +86,8 @@ def voisins(x, y, Lcondition, t):
                     Var.TCase[C.y, C.x].explore = True
     return L
 
-def reset_case():
-    '''Remarque les cases comme inexplorées, utile pour refaire un parcours des cases'''
-    for x in range(Var.largeur):
-        for y in range(Var.hauteur):
-            Var.TCase[y, x].explore = False
-    return
-
 def wavefront(x, y, Lcondition, Laction, maxd, t):
-    '''Algorithme WaveFront, point de départ (x,y), Choisit les voisins selon Lcondition et leur applique Laction dans un rayon maxd
+    '''choisit les voisins de la case (x,y) selon Lcondition et leur applique Laction dans un rayon maxd
     *param : -> x,y coordonnées de la case de départ 
              -> Lcondition une liste de condition à vérifier
              -> Laction
@@ -130,29 +99,31 @@ def wavefront(x, y, Lcondition, Laction, maxd, t):
     L = [vect2D(x, y)]
     while d < maxd and len(L) != 0 :
         V = []
-        for C in L : #C : coordonnées de la forme vect2D(x,y)
+        for C in L : #Pour chaque case de L, on ajoute les voisins qui vérifient les conditions
             V = V + voisins(C.x, C.y, Lcondition, t)
             for action in Laction :
-                action(C, d)
+                action(C, d) # On effectue les différentes actions sur la case
         d += 1
         L = []
-        for v in V :
+        for v in V : # On se prépare à passer aux voisins qui se situent à d + 1 d'une sortie
             L.append(v)
     reset_case()
     return
 
 def recalcule_champ_potentiel():
-    '''Recalcule le champ de potentiel'''
+    '''Recalcule le champ scalaire, c'est le programme de base qui fait fonctionner notre algorithme'''
     for x in range(Var.largeur):
         for y in range(Var.hauteur):
-            Var.TCase[y, x].score = -1
+            Var.TCase[y, x].score = -1 # On réinitialise toutes les cases à la distance par défaut -1
     for S in Var.LSortie :
         wavefront(S[0], S[1], [pas_mur_condition], [change_distance_action], Var.hauteur * Var.largeur, False)
+        # Pour chaque sortie, on effectue wavefront, c'est à dire qu'on regarde le plus court chemin de chaque case à cette sortie, et on prend le minimum
+        # La distance maximum correspond ici au nombre de cases sur le plateau
     direction()
     raffraichir()
     return
-    
-##
+# ===============================================================================================================
+
 def direction() :
     '''Calcule le tableau des directions à prendre'''
     for x in range(Var.largeur):
@@ -162,14 +133,14 @@ def direction() :
                 reset_case()
                 #On va calculer le vecteur à prendre : le gradient de distance
                 def aux1():
-                    '''Fonction auxiliaire qui gère le cas où '''
+                    '''Fonction auxiliaire qui gère le cas ou on doit choisir '''
                     s = Var.TCase[y, x].score
                     vx = 0
                     vy = 0
                     for v in V :
-                        if Var.TCase[v.y, v.x].score < s :
-                            vx = vx + v.x - x
-                            vy = vy + v.y - y
+                        if Var.TCase[v.y, v.x].score < s :# on calcule les gradient directionnels entre v et (x,y) et on les somme
+                            vx += (v.x - x) 
+                            vy += (v.y - y)
                     return (vx, vy)
                 def aux2():
                     '''Fonction auxiliaire qui gère le cas où on est en contact avec un obstacle'''
@@ -184,13 +155,12 @@ def direction() :
                 if len(V) == 4 : # Tous les voisins sont des cases accessibles, on calcule un gradient discret avec les cases autour de celle qu'on considère
                     vx = Var.TCase[y, x - 1].score - Var.TCase[y, x + 1].score
                     vy = Var.TCase[y - 1, x].score - Var.TCase[y + 1, x].score
-                    if Var.TCase[y + np.sign(vy), x + np.sign(vx)].type < 0 : # On évite aux individus de rester bloqués dans les coins si ils se dirigent vers un mur ??
+                    if Var.TCase[y + np.sign(vy), x + np.sign(vx)].type < 0 : # On gère le cas ou on fonce sur un mur
                         (vx, vy) = aux2()
                 elif len(V) == 2 :
-                    #Problème de murs en coin
-                    if abs(V[0].x - x) + abs(V[1].x - x) == 1 :
+                    if abs(V[0].x - x) + abs(V[1].x - x) == 1 : # Problème de murs en coin
                         (vx, vy) = aux2()
-                    else :
+                    else :                                      # Problème des couloirs
                         (vx, vy) = aux1()
                 #Autre problème
                 else :
@@ -200,7 +170,7 @@ def direction() :
                 else :
                     (vx, vy) = aux2()
                     if vect2D(vx,vy).norme() !=0 :
-                        Var.Tdirection[y, x] = 1 / vect2D(vx, vy).norme() * vect2D(vx, vy)
+                        Var.Tdirection[y, x] = vect2D(vx, vy).normalise()
                     else : 
                         Var.Tdirection[y, x] = vect2D(vx, vy)
                 
@@ -236,4 +206,30 @@ def raffraichir():
                     Var.Tligne[y, x].pos1 = vect2D(x,y) * Var.dimCase + vect2D(1,1) * (Var.dimCase / 2)
                     Var.Tligne[y, x].pos2 = Var.Tligne[y, x].pos1 + Var.Tdirection[y,x] * 5
                     Var.Tligne[y, x].raffraichir()
+    return
+
+# Fonctions qui réalise des statistiques sur les données de la simulation :
+def stat_dMaxCase(label):
+    '''Permet de mettre à jour la plus grande distance entre une case et la sortie la plus proche notée dMaxCase'''
+    Var.dMaxCase = -1
+    infini = False
+    for x in range(Var.largeur):
+        for y in range(Var.hauteur):
+            if not(infini) :
+                if Var.TCase[y,x].type ==0 :
+                    if Var.TCase[y,x].score==-1 :
+                        infini = True
+                    elif(Var.TCase[y,x].score > Var.dMaxCase) :
+                        Var.dMaxCase = Var.TCase[y,x].score
+    if Var.dMaxCase == -1 : # Mise à jour de la fenêtre graphique
+        label.config(text = "∞")
+    else :
+        label.config(text = str(Var.dMaxCase))
+    label.pack()
+    return
+
+def stat_nbIndiv(label):
+    '''Permet de mettre à jour la fenêtre graphique en affichant le nombre d'individus encore sur le terrain'''
+    label.config(text = str(len(Var.LIndiv)))
+    label.pack()
     return
