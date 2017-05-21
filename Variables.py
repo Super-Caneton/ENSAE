@@ -3,15 +3,20 @@
 import numpy as np
 from Vect2D import *
 
+# Variable de la fenêtre
+titre = "Simulateur de mouvement de foule"  # titre du l'interface graphique
+largeur = 50                                # largeur de l'interface
+hauteur = 30                                # hauteur de l'interface
+dimCase = 20                                # Taille d'une case en pixels
 
-## Variables concernant les individus
+# Variables concernant les individus
 LIndiv = []     # Liste des individus sur le terrain
 NIndiv = 100    # Nombre d'individu à créer au début de la simulation
 rIndiv = 5      # Rayon de chaque individu
 vminIndiv = 0.5 # Vitesse minimale d'un individu
 vmaxIndiv = 2   # Vitesse maximale d'un individu
 
-## Variables concernant le terrain :
+# Variables concernant le terrain :
 LSortie = []    # Liste des sorties sous la forme [x,y]
 
 #Variables relatif à la selection des cases
@@ -28,13 +33,6 @@ TCase = np.array([])                        # Stocke les cases sous forme de tab
 Tdirection = np.array([[vect2D()]*largeur]*hauteur,vect2D)  # Stocke le vecteur direction de chacune des cases dans un tableau
 Tligne = np.array([])                       # Stocke ?? sous forme de tableau
 Ttexte = np.array([])                       # Stocke les distances minimum de chaque case à la sortie sous forme de tableau
-
-
-# Variable de la fenêtre
-titre = "Simulateur de mouvement de foule"  # titre du l'interface graphique
-largeur = 50                                # largeur de l'interface
-hauteur = 30                                # hauteur de l'interface
-dimCase = 20                                # Taille d'une case en pixels
 
 # Variable de gestion des paramètres dans l'interface
 grilleTerrain = False                       # Boleen qui permet d'afficher une grille sur le terrain
