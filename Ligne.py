@@ -9,9 +9,9 @@ class ligne :
     def __init__(self, pos1 = vect2D(), pos2 = vect2D(), canvas = "", color = "black") :
         self.pos1 = pos1        # Position du début de la flèche
         self.pos2 = pos2        # Position de la fin de la flèche
-        self.canvas = canvas    # Le Canevas sur lequel on dessine
+        self.canvas = canvas    # Le terrain sur lequel on dessine
         self.color = color      # Couleur de la flèche
-        self.id = canvas.create_line(pos1.x,pos1.y,pos2.x,pos2.y, fill=color, arrow="last") #Représentation graphique
+        self.id = canvas.create_line(pos1.x, pos1.y, pos2.x, pos2.y, fill = color, arrow = "last") #Représentation graphique
         
     def raffraichir(self) :
         self.canvas.coords(self.id, self.pos1.x, self.pos1.y, self.pos2.x, self.pos2.y)
@@ -25,10 +25,10 @@ def init_ligne(terrain):
             Var.Tligne[y,x] = ligne(canvas = terrain)
     return
     
-def cacher_ligne() :
+def cacher_ligne():
     '''Permet de cacher les vecteurs'''
-    for x in range(Var.largeur) :
-        for y in range(Var.hauteur) :
+    for x in range(Var.largeur):
+        for y in range(Var.hauteur):
             Var.Tligne[y,x].pos1 = vect2D()
             Var.Tligne[y,x].pos2 = vect2D()
             Var.Tligne[y,x].raffraichir()
