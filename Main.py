@@ -89,6 +89,9 @@ Frame(p1, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
 bouton_recalcule = Button(p1, text = "Recalculer le champ", command = lambda : recalcule(label_dMaxCase))
 bouton_recalcule.pack(fill=X)
 
+#Bouton pour lancer une simulation automatique
+bouton_simulation = Button(p1, text = "Démarrer la simulation", command = lambda : (recalcule(label_dMaxCase), place_indiv(terrain, nb_indiv)))
+bouton_simulation.pack(fill=X)
 
 #Boutons relatifs aux individus
 Frame(p1, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
