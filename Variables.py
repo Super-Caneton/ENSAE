@@ -30,7 +30,7 @@ typeCase = 0      # type de la case (-1 = infranchissable, 0 = case normale, 1 =
 # Variables globale du stockage des donnees
     # Attention, pour demander la case à la colonne x et ligne y, il faut écrire TCase[y,x]
 TCase = np.array([])                        # Stocke les cases sous forme de tableau 
-Tdirection = np.array([[vect2D()]*largeur]*hauteur,vect2D)  # Stocke le vecteur direction de chacune des cases dans un tableau
+Tdirection = np.array([[vect2D()] * largeur] * hauteur, vect2D)  # Stocke le vecteur direction de chacune des cases dans un tableau
 Tligne = np.array([])                       # Stocke ?? sous forme de tableau
 Ttexte = np.array([])                       # Stocke les distances minimum de chaque case à la sortie sous forme de tableau
 
