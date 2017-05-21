@@ -71,18 +71,21 @@ def pas_mur_condition(C):
 ##Actions pour la fonction voisins prenant en argument un vect2D et un int
 
 def change_distance_action(C, d):
+    '''Atribue une distance en fonction de d à la case C'''
     if Var.TCase[C.y, C.x].score >= 0 :
         Var.TCase[C.y, C.x].score = min(d, Var.TCase[C.y, C.x].score)
     else :
         Var.TCase[C.y, C.x].score = d
     return 
     
-def augmente_distance_action(C, d = 0):
+def augmente_distance_action(C, d = 0): #Inutilisée
+    '''Ajoute une distance arbitraire à la case C'''
     if Var.TCase[C.y, C.x].score > 0 :
         Var.TCase[C.y, C.x].score += 10
     return
     
 def change_case_action(C, d = 0):
+    '''Change le type de case de la case C'''
     if(Var.TCase[C.y, C.x].type == 1) :
         Var.LSortie.remove([C.x, C.y])
     Var.TCase[C.y, C.x].score = -1
@@ -92,11 +95,10 @@ def change_case_action(C, d = 0):
 
 
 ##
-#
-#t=False : voisin de Von Neumann
-#t=True : Voisin de Moore
 def voisins(x, y, Lcondition, t):
     '''Renvoie la liste des voisins de la case (x,y) qui satisfont une liste de conditions'''
+    #t=False : voisin de Von Neumann
+    #t=True : Voisin de Moore
     L = []
     V = [vect2D(x - 1, y), vect2D(x + 1, y), vect2D(x, y - 1), vect2D(x, y + 1)]
     if(t) :
@@ -122,11 +124,12 @@ def reset_case():
             Var.TCase[y, x].explore = False
     return
 
-##Algorithme WaveFront
-#Point de départ (x,y), Choisit les voisins selon Lcondition et leur applique Laction dans un rayon maxd
-#t=False : voisin de Von Neumann
-#t=True : Voisin de Moore
-def wavefront(x, y, Lcondition, Laction, maxd, t): #x,y coordonnées de la case de départ
+##
+def wavefront(x, y, Lcondition, Laction, maxd, t):
+    '''Algorithme WaveFront, point de départ (x,y), Choisit les voisins selon Lcondition et leur applique Laction dans un rayon maxd'''
+    #x,y coordonnées de la case de départ
+    #t=False : voisin de Von Neumann
+    #t=True : Voisin de Moore
     d=0
     L=[vect2D(x, y)]
     while d < maxd and len(L) != 0 :
@@ -153,7 +156,7 @@ def recalcule_champ_potentiel():
     raffraichir()
     return
     
-#A MODIFIER <======================================
+##
 def direction() :
     '''Calcule le tableau des directions à prendre'''
     for x in range(Var.largeur):
@@ -162,6 +165,8 @@ def direction() :
                 V = voisins(x, y, [pas_mur_condition], False)
                 reset_case()
                 #On va calculer le vecteur à prendre : le gradient de distance
+                
+                #Fonctions auxiliaires
                 def aux1():
                     s = Var.TCase[y, x].score
                     vx = 0
@@ -180,6 +185,7 @@ def direction() :
                             vx = v.x - x
                             vy = v.y - y
                     return (vx, vy)
+                
                 #Lorsqu'il n'y a pas de problème
                 if len(V) == 4 :
                     vx = Var.TCase[y, x - 1].score - Var.TCase[y, x + 1].score
