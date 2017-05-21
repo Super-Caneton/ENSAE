@@ -1,4 +1,5 @@
 from tkinter import *
+import time
 import Variables as Var
 from Case import*
 from Texte import*
@@ -134,6 +135,12 @@ label_nbIndiv.pack()
 
 Frame(p2, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
 
+Label(p2, text = "Temps écoulé :").pack()
+label_temps = Label(p2, text = "00:00")
+label_temps.pack()
+
+Frame(p2, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
+
 
 ##Le terrain
 terrain = Canvas(p, width=Var.largeur*Var.dimCase,height=Var.hauteur*Var.dimCase, bd=0, highlightthickness=0, background="grey")
@@ -157,6 +164,10 @@ def update():
         bouge_indiv()
         sortir_indiv(terrain)
         stat_nbIndiv(label_nbIndiv)
+        
+        Var.tps += Var.TpsRaffraichissement/1000
+        tpsStr = time.strftime("%M:%S", time.gmtime(Var.tps))
+        label_temps.config(text = tpsStr)
     tk.update_idletasks()
     tk.after(Var.TpsRaffraichissement, update)
 
