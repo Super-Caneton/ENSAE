@@ -21,7 +21,7 @@ p.pack()
 p1 = PanedWindow(p, orient=VERTICAL)
 p1.pack(side = LEFT, fill=Y)
 
-#Panneau de délimitation en bas
+#Panneau de délimitation à droite
 p2 = PanedWindow(p, orient=HORIZONTAL)
 p2.pack(side = RIGHT, fill=Y)
 
@@ -57,7 +57,7 @@ menubar.add_cascade(label="Aide", menu=menu4)
 
 tk.config(menu=menubar)
 
-##Boite à outils
+##Boite à outils (p1)
 Label(p1, text = "Boite à outils").pack(side = TOP)
 Frame(p1, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
 
@@ -85,6 +85,7 @@ bouton_typePinceau.pack(fill=X)
 
 Frame(p1, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
 
+#Bouton pour recalculer le champ de potentiel
 bouton_recalcule = Button(p1, text = "Recalculer le champ", command = lambda : recalcule(label_dMaxCase))
 bouton_recalcule.pack(fill=X)
 
@@ -94,17 +95,21 @@ Frame(p1, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
 
 Label(p1, text = "Individus").pack()
 
+#Place des individus au hasard
 bouton_indiv = Button(p1, text = "Placer au hasard", command = lambda : place_indiv(terrain, nb_indiv))
 bouton_indiv.pack(fill=X)
 
+#Détermine le nombre d'individu à placer entre 0 et 200
 nb_indiv_defaut = IntVar(p1)
 nb_indiv_defaut.set(Var.NIndiv)
 nb_indiv = Spinbox(p1, from_=0, to=200, textvariable=nb_indiv_defaut, justify='center')
 nb_indiv.pack(fill=X)
 
+#Supprime tous les individus du terrain
 bouton_indiv2 = Button(p1, text = "Supprimer", command = lambda : supprime_indiv(terrain))
 bouton_indiv2.pack(fill=X)
 
+#Met en pause le mouvement des individus
 bouton_pause = Button(p1, text = "Pause", command = lambda : change_pause(bouton_pause))
 bouton_pause.pack(fill=X)
 
@@ -112,12 +117,14 @@ bouton_pause.pack(fill=X)
 Label(p2, text = "Statistiques").pack(side = TOP)
 Frame(p2, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
 
+#Case la plus éloignée
 Label(p2, text = "Distance du point\n le plus éloigné\n d'une sortie :").pack()
 label_dMaxCase = Label(p2, text = "∞")
 label_dMaxCase.pack()
 
 Frame(p2, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
 
+#Nombre d'individus encore sur le terrain
 Label(p2, text = "Nombre\n d'individus :").pack()
 label_nbIndiv = Label(p2, text = str(len(Var.LIndiv)))
 label_nbIndiv.pack()
