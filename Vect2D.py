@@ -1,5 +1,6 @@
 ## Fichier Vect2D.py
 ## Ce fichier contient une classe éponyme et des méthodes permettant d'effectuer les opérations de bases sur des vecteurs à deux dimensions.
+
 from math import *
 
 class vect2D:
