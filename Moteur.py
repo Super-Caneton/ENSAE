@@ -222,8 +222,8 @@ def raffraichir():
             for y in range(Var.hauteur) :
                 Var.TCase[y, x].raffraichir()
     if(Var.mode >= 2) : # mode 2 = on affiche uniquement un degradé
-        fg = (10, 10, 100)
-        bg = (255, 255, 255)
+        fg = (10, 10, 100)      # Bleu foncé
+        bg = (255, 255, 255)    # Blanc
         for x in range(Var.largeur):
             for y in range(Var.hauteur):
                 Var.TCase[y, x].raffraichir()
