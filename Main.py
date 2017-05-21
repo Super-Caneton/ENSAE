@@ -65,10 +65,11 @@ Frame(p1, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
 Label(p1, text = "Pinceau").pack()
 
 # liste de sélection
-liste = Listbox(p1, height=3)
+liste = Listbox(p1, height=4)
 liste.insert(1, "Mur")
 liste.insert(2, "Sortie")
-liste.insert(3, "Effacer")
+liste.insert(3, "Individu")
+liste.insert(4, "Effacer")
 
 liste.pack(fill=X)
 
@@ -84,7 +85,7 @@ bouton_typePinceau.pack(fill=X)
 
 Frame(p1, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
 
-bouton_recalcule = Button(p1, text = "Recalculer le champ", command = recalcule_champ_potentiel)
+bouton_recalcule = Button(p1, text = "Recalculer le champ", command = lambda : recalcule(label_dMaxCase))
 bouton_recalcule.pack(fill=X)
 
 
@@ -93,8 +94,13 @@ Frame(p1, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
 
 Label(p1, text = "Individus").pack()
 
-bouton_indiv = Button(p1, text = "Placer", command = lambda : init_indiv(terrain))
+bouton_indiv = Button(p1, text = "Placer au hasard", command = lambda : place_indiv(terrain, nb_indiv))
 bouton_indiv.pack(fill=X)
+
+nb_indiv_defaut = IntVar(p1)
+nb_indiv_defaut.set(Var.NIndiv)
+nb_indiv = Spinbox(p1, from_=0, to=200, textvariable=nb_indiv_defaut, justify='center')
+nb_indiv.pack(fill=X)
 
 bouton_indiv2 = Button(p1, text = "Supprimer", command = lambda : supprime_indiv(terrain))
 bouton_indiv2.pack(fill=X)
@@ -126,7 +132,7 @@ terrain.pack(side=RIGHT)
 tk.update()
 
 #Evenements relatif au terrain
-terrain.bind("<Button-1>", lambda event : clic_gauche(event, taille_pinceau))
+terrain.bind("<Button-1>", lambda event : clic_gauche(event, taille_pinceau, terrain))
 terrain.bind("<Button-3>", clic_droit)
 terrain.bind("<B1-Motion>", lambda event : deplacement_clic_gauche(event, taille_pinceau))
 terrain.bind("<B3-Motion>", deplacement_clic_droit)
@@ -140,6 +146,7 @@ def update():
     if not(Var.pause) :
         bouge_indiv()
         sortir_indiv(terrain)
+        stat_nbIndiv(label_nbIndiv)
     tk.update_idletasks()
     tk.after(Var.TpsRaffraichissement, update)
 

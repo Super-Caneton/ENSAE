@@ -93,6 +93,27 @@ def change_typePinceau(self):
     
 ##
 
+def recalcule(label) :
+    recalcule_champ_potentiel()
+    stat_dMaxCase(label)
+    return
+    
+##
+
+def place_indiv(terrain, label):
+    n = label.get()
+    if(n == ""):
+        Var.NIndiv = 0
+    else :
+        if(int(n) > 200) :
+            Var.NIndiv = 200
+        else :
+            Var.NIndiv = int(label.get())
+    init_indiv(terrain)
+    return
+
+##
+
 #Bouton Pause
 def change_pause(self):
     Var.pause = not(Var.pause)
@@ -118,21 +139,25 @@ def coordonnees_pointeur(x,y) :
     Var.yPointeur = y // Var.dimCase
     return
 
-def clic_gauche(event, taille_pinceau):
+def clic_gauche(event, taille_pinceau, terrain):
     coordonnees_pointeur(event.x,event.y)
-    if(Var.typeCase!=1) :
-        wavefront(Var.xPointeur,Var.yPointeur, [], [change_case_action], taille_pinceau.get(), Var.typePinceau)
+    if(Var.placeIndiv) :
+        pose_indiv(event.x,event.y,terrain)
     else :
-        creer_sortie(Var.xPointeur,Var.yPointeur)
-    return
-
-def deplacement_clic_gauche(event, taille_pinceau) :
-    coordonnees_pointeur(event.x,event.y)
-    if(Var.nvCase) :
         if(Var.typeCase!=1) :
             wavefront(Var.xPointeur,Var.yPointeur, [], [change_case_action], taille_pinceau.get(), Var.typePinceau)
         else :
             creer_sortie(Var.xPointeur,Var.yPointeur)
+    return
+
+def deplacement_clic_gauche(event, taille_pinceau) :
+    coordonnees_pointeur(event.x,event.y)
+    if(Var.placeIndiv == False) :
+        if(Var.nvCase) :
+            if(Var.typeCase!=1) :
+                wavefront(Var.xPointeur,Var.yPointeur, [], [change_case_action], taille_pinceau.get(), Var.typePinceau)
+            else :
+                creer_sortie(Var.xPointeur,Var.yPointeur)
     return
     
 def efface_case(x,y):
@@ -165,10 +190,13 @@ def selection(event):
     w = event.widget
     index = int(w.curselection()[0])
     value = w.get(index)
+    Var.placeIndiv = False
     if (value == "Mur") :
         Var.typeCase = -1
     elif (value == "Effacer") :
         Var.typeCase = 0
     elif (value == "Sortie") :
         Var.typeCase = 1
+    elif(value == "Individu"):
+        Var.placeIndiv = True
     return

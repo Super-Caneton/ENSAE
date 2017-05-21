@@ -5,14 +5,14 @@ from Vect2D import *
 
 # Variable de la fenêtre
 titre = "Simulateur de mouvement de foule"  # titre du l'interface graphique
-largeur = 50                                # largeur de l'interface
-hauteur = 30                                # hauteur de l'interface
+largeur = 50                                # largeur du terrain en nombre de cases
+hauteur = 30                                # hauteur du terrain en nombre de cases
 dimCase = 20                                # Taille d'une case en pixels
 
 # Variables concernant les individus
 LIndiv = []     # Liste des individus sur le terrain
 NIndiv = 100    # Nombre d'individu à créer au début de la simulation
-rIndiv = 5      # Rayon de chaque individu
+rIndiv = 3      # Rayon de chaque individu
 vminIndiv = 0.5 # Vitesse minimale d'un individu
 vmaxIndiv = 2   # Vitesse maximale d'un individu
 
@@ -26,6 +26,7 @@ xPointeur = -1    # abscisse du curseur ??
 yPointeur = -1    # ordonnée du curseur ??
 nvCase = True     # boleen qui renvoit true lorsqu'une case est sélectionnée
 typeCase = 0      # type de la case (-1 = infranchissable, 0 = case normale, 1 = sortie, (-2=danger, 2=escalier ?)
+placeIndiv = False #Dois t-on placer un individu ou pas
 
 # Variables globale du stockage des donnees
     # Attention, pour demander la case à la colonne x et ligne y, il faut écrire TCase[y,x]

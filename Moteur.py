@@ -31,6 +31,32 @@ def creer_sortie(x, y):
         change_case_action(vect2D(x, y))
         Var.LSortie.append([x, y])
     return
+    
+###Fonctions sur les statistiques :
+def stat_dMaxCase(label) :
+    '''Permet de mettre à jour la distance de la case la plus éloignée de la sortie'''
+    Var.dMaxCase =-1
+    infini = False
+    for x in range(Var.largeur) :
+        for y in range(Var.hauteur) :
+            if(not(infini)) :
+                if(Var.TCase[y,x].type ==0):
+                    if(Var.TCase[y,x].score==-1) :
+                        infini = True
+                    elif(Var.TCase[y,x].score > Var.dMaxCase) :
+                        Var.dMaxCase = Var.TCase[y,x].score
+    if Var.dMaxCase == -1 :
+        label.config(text = "∞")
+    else :
+        label.config(text = str(Var.dMaxCase))
+    label.pack()
+    return
+
+def stat_nbIndiv(label):
+    '''Permet de mettre à jour le nombre d'individus encore sur le terrain'''
+    label.config(text = str(len(Var.LIndiv)))
+    label.pack()
+    return
 
 ##Moteur : Potential Field
 
