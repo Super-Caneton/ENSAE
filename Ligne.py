@@ -11,7 +11,7 @@ class ligne :
         self.pos2 = pos2        # Position de la fin de la flèche
         self.canvas = canvas    # Le Canevas sur lequel on dessine
         self.color = color      # Couleur de la flèche
-        self.id = canvas.create_line(pos1.x,pos1.y,pos2.x,pos2.y, fill=color, arrow="last") # ??
+        self.id = canvas.create_line(pos1.x,pos1.y,pos2.x,pos2.y, fill=color, arrow="last") #Représentation graphique
         
     def raffraichir(self) :
         self.canvas.coords(self.id, self.pos1.x, self.pos1.y, self.pos2.x, self.pos2.y)
