@@ -31,7 +31,6 @@ class vect2D:
         nVecteur.x -= vecteur.x
         nVecteur.y -= vecteur.y
         return nVecteur
-        return nVecteur
     def __sub__(self, vecteur):
         '''Gestion de la soustraction de deux vecteurs'''
         nVecteur = self
@@ -65,13 +64,13 @@ class vect2D:
         return "[{},{}]".format(self.x,self.y)
 
     # Méthodes
-    def norme(self) :
+    def norme(self):
         '''Renvoit la norme d'un vecteur'''
-        return sqrt(self.x**2+self.y**2)
+        return sqrt(self.x**2 + self.y**2)
         
-    def normalise(self) :
+    def normalise(self):
         '''Renvoit le vecteur normalisé'''
-        if(self.norme() != 0) :
+        if self.norme() != 0 :
             return (1 / self.norme()) * self
         return self
         
