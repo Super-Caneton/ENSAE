@@ -33,7 +33,7 @@ menu1.add_command(label="Nouveau", command=lambda : nouveau(terrain))
 menu1.add_command(label="Enregistrer sous...", command=enregistrer_sous)
 menu1.add_command(label="Charger", command= lambda : charger(terrain))
 menu1.add_separator()
-menu1.add_command(label="Quitter", command=tk.quit)
+menu1.add_command(label="Quitter", command=tk.destroy)
 menubar.add_cascade(label="Fichier", menu=menu1)
 
 menu2 = Menu(menubar, tearoff=0)
