@@ -25,7 +25,7 @@ LSortie = []    # Liste des sorties sous la forme [x,y]
 xPointeur = -1                              # abscisse du curseur en case
 yPointeur = -1                              # ordonnée du curseur en case
 nvCase = True                               # boleen qui renvoit true lorsqu'une case est sélectionnée
-typeCase = 0                                # type de la case (-1 = infranchissable, 0 = case normale, 1 = sortie,
+typeCase = 0                                # type de la case (-1 = infranchissable, 0 = case normale, 1 = sortie)
 placeIndiv = False                          # Sur une case, true si on peut placer un individu
 
 # Variables globale du stockage des donnees
@@ -38,7 +38,7 @@ Ttexte = np.array([])                       # Stocke les distances minimum de ch
 # Variable de gestion des paramètres dans l'interface
 grilleTerrain = False                       # Boleen qui permet d'afficher une grille sur le terrain
 typePinceau = False                         # Boleen qui permet de selectionner le type de pinceau (0 = Croix, 1 = Carre) 
-mode = 1                                    # Permet de selectionner un mode d'affichage (1=normal, 2=champ de potentiel, 3=distance, 4=lignes de champ)
+mode = 1                                    # Permet de selectionner un mode d'affichage (1 = normal, 2 = champ de potentiel, 3 = distance, 4 = lignes de champ)
 
 # Gestion du temps
 TpsRaffraichissement = 10                   # Temps de raffraichissement en ms
