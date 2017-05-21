@@ -22,23 +22,23 @@ LSortie = []    # Liste des sorties sous la forme [x,y]
 #Variables relatif à la selection des cases
     # x = abscisse, y = ordonnée, (0,0) en haut à gauche
     # Par défaut, si aucune case n'est selectionnée, on pointe vers la case (-1,-1)
-xPointeur = -1    # abscisse du curseur ?? 
-yPointeur = -1    # ordonnée du curseur ??
-nvCase = True     # boleen qui renvoit true lorsqu'une case est sélectionnée
-typeCase = 0      # type de la case (-1 = infranchissable, 0 = case normale, 1 = sortie, (-2=danger, 2=escalier ?)
-placeIndiv = False #Dois t-on placer un individu ou pas
+xPointeur = -1      # abscisse du curseur en case
+yPointeur = -1      # ordonnée du curseur en case
+nvCase = True       # boleen qui renvoit true lorsqu'une case est sélectionnée
+typeCase = 0        # type de la case (-1 = infranchissable, 0 = case normale, 1 = sortie, (-2=danger, 2=escalier ?)
+placeIndiv = False  # Dois t-on placer un individu ou pas
 
 # Variables globale du stockage des donnees
     # Attention, pour demander la case à la colonne x et ligne y, il faut écrire TCase[y,x]
 TCase = np.array([])                        # Stocke les cases sous forme de tableau 
 Tdirection = np.array([[vect2D()] * largeur] * hauteur, vect2D)  # Stocke le vecteur direction de chacune des cases dans un tableau
-Tligne = np.array([])                       # Stocke ?? sous forme de tableau
+Tligne = np.array([])                       # Stocke les lignes de champ sous forme de tableau
 Ttexte = np.array([])                       # Stocke les distances minimum de chaque case à la sortie sous forme de tableau
 
 # Variable de gestion des paramètres dans l'interface
 grilleTerrain = False                       # Boleen qui permet d'afficher une grille sur le terrain
 typePinceau = False                         # Boleen qui permet de selectionner le type de pinceau (0 = Croix, 1 = Carre) 
-mode = 1                                    # Permet de selectionner un mode d'affichage (??)
+mode = 1                                    # Permet de selectionner un mode d'affichage (1=normal, 2=champ de potentiel, 3=distance, 4=lignes de champ)
 
 # Gestion du temps
 TpsRaffraichissement = 10                   # Temps de raffraichissement en ms
