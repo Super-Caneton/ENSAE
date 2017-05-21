@@ -1,6 +1,6 @@
 ## Fichier Vect2D.py
 ## Ce fichier contient une classe eponyme et des methodes permettant d'effectuer les operations de bases sur des vecteurs à deux dimensions.
-from math import*
+from math import *
 
 class vect2D:
     '''Fourni des vecteurs à deux dimensions'''
@@ -72,7 +72,7 @@ class vect2D:
     def normalise(self) :
         '''Renvoit le vecteur de norme 1 colineaire'''
         if(self.norme() != 0) :
-            return (1/self.norme())*self
+            return (1 / self.norme()) * self
         return self
         
 ## Fonctions sur les vecteurs :      
@@ -83,4 +83,4 @@ def p_scal(vecteur1, vecteur2):
     
 def projection(vecteur1, vecteur2): 
     '''Calcule la projection du vecteur 1 sur l'axe dirigé par le vecteur 2'''
-    return p_scal(vecteur1, vecteur2.normalise())*vecteur2.normalise()
+    return p_scal(vecteur1, vecteur2.normalise()) * vecteur2.normalise()
