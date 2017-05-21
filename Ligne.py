@@ -18,7 +18,7 @@ class ligne :
         return
         
 def init_ligne(terrain):
-    '''Permet d'afficher les vecteurs'''
+    '''Permet d'afficher les vecteurs sur chaque case pour représenter le champs vectoriel'''
     Var.Tligne=np.array([[ligne(canvas = terrain)] * Var.largeur] * Var.hauteur, ligne)
     for x in range(Var.largeur):
         for y in range(Var.hauteur):
@@ -26,7 +26,7 @@ def init_ligne(terrain):
     return
     
 def cacher_ligne():
-    '''Permet de cacher les vecteurs'''
+    '''Permet de cacher les vecteurs du champs vectoriel'''
     for x in range(Var.largeur):
         for y in range(Var.hauteur):
             Var.Tligne[y,x].pos1 = vect2D()
