@@ -15,8 +15,8 @@ class individu:
         self.vmoy = vmoy        # Vitesse moyenne d'un individu
         self.canvas = canvas    # Le Canevas sur lequel on dessine
         self.color = color      # Couleur de chaque individu
-        self.id = canvas.create_oval(-1 * r, -1 * r, r, r, fill = color, outline = color)
-        self.canvas.move(self.id, pos.x, pos.y)
+        self.id = canvas.create_oval(-1 * r, -1 * r, r, r, fill = color, outline = color) #Représentation graphique
+        self.canvas.move(self.id, pos.x, pos.y) #On le place à sa position
     
     def bouge(self):
         '''deplace un individu de dpos'''
@@ -76,6 +76,7 @@ def rebond_indiv(individu1, individu2) :
     t1 = individu1.dpos - n1
     t2 = individu2.dpos - n2
     
+    #On conserve les composantes tangentielles et on échange les composantes normales
     individu1.dpos = (t1 + n2)
     individu2.dpos = (t2 + n1)
     
