@@ -9,14 +9,18 @@ from Ligne import*
 from Individu import*
 from Moteur import*
 
+##Menu
 
+##Fichier (Menu1)
 def nouveau(terrain) :
+    '''Crée un nouveau terrain'''
     if askyesno("Attention","Êtes vous sûr de vouloir tout supprimer ?"):
         terrain_vierge(terrain)
     return
 
-#Sauvegarde
+#Sauvegarder
 def enregistrer_sous():
+    '''Enregistre le terrain dans un fichier texte'''
     save = asksaveasfile(mode='w', filetypes=[('Fichier Texte (.txt)','.txt')], defaultextension=".txt")
     if save =="":
         return
@@ -28,8 +32,9 @@ def enregistrer_sous():
     save.close()
     return
 
-#Charge un terrain
+#Charger
 def charger(terrain) :
+    '''Charge le terrain d'un fichier texte'''
     filename = askopenfilename(title="Ouvrir votre fichier",filetypes=[('Fichier Texte (.txt)','.txt')])
     if filename =="" :
         return
@@ -46,23 +51,25 @@ def charger(terrain) :
     save.close()
     return
     
-##
-
+## Éditer(Menu2)
 def remplir_mur() :
+    '''Rempli le terrain de mur'''
     for x in range(Var.largeur) :
         for y in range(Var.hauteur) :
             Var.TCase[y,x].type = -1
             Var.TCase[y,x].raffraichir()
     return
+  
     
-##
-
+## Affichage(Menu3)
 def change_mode(nvmode):
+    '''Change le mode d'affichage'''
     Var.mode = nvmode
     raffraichir()
     return
     
 def affiche_grille() :
+    '''Active ou désactive la grille'''
     Var.grilleTerrain = not(Var.grilleTerrain)
     for x in range(Var.largeur) :
         for y in range(Var.hauteur) :
@@ -73,16 +80,15 @@ def affiche_grille() :
     raffraichir()
     return
     
-##
-
-#Affiche des infos sur le programme
+## Aide (Menu4)
 def info() :
+    '''Affiche des infos sur le programme'''
     showinfo("A propos", Var.titre + " par LAM Kevin et MEILAC Adrien")
     return
     
-##
-
+## bouton_typePinceau
 def change_typePinceau(self):
+    '''Change le type de pinceau entre Carré ou Croix'''
     if(Var.typePinceau) :
         self.config(text = "Croix", command =  lambda : change_typePinceau(self))
     else :
@@ -91,16 +97,16 @@ def change_typePinceau(self):
     self.pack(fill=X)
     return
     
-##
-
+## bouton_recalcule
 def recalcule(label) :
+    '''Recalcule le chmp de potentiel'''
     recalcule_champ_potentiel()
     stat_dMaxCase(label)
     return
     
-##
-
+## bouton_indiv
 def place_indiv(terrain, label):
+    '''Place des individus aux hasard sur le terrain et met a jour le nombre d'individus affiché par label'''
     n = label.get()
     if(n == ""):
         Var.NIndiv = 0
@@ -112,10 +118,9 @@ def place_indiv(terrain, label):
     init_indiv(terrain)
     return
 
-##
-
-#Bouton Pause
+## bouton_pause
 def change_pause(self):
+    '''Active/désactive la pause'''
     Var.pause = not(Var.pause)
     if(Var.pause) :
         self.config(text = "Pause", command =  lambda : change_pause(self), relief = SUNKEN)
@@ -125,12 +130,11 @@ def change_pause(self):
     return
 
 
-##
-
 ##Évènements
 
-#Détermine quelle case est selectionnée selon les coordonnées du pointeur
+##Souris
 def coordonnees_pointeur(x,y) :
+    '''Détermine quelle case est selectionnée selon les coordonnées du pointeur'''
     if (Var.xPointeur == x // Var.dimCase and Var.yPointeur == y // Var.dimCase) :
         Var.nvCase = False
     else :
@@ -178,15 +182,17 @@ def deplacement_clic_droit(event) :
         efface_case(Var.xPointeur,Var.yPointeur)
     return
 
-#Remet toutes les valeurs par défaut
 def reset_clic(event):
+    '''Remet toutes les valeurs de la souris par défaut'''
     Var.xPointeur = -1
     Var.yPointeur = -1
     Var.nvCase = False
     return
 
-#Selestionne le type de case à appliquer
+## Liste du pinceau
+
 def selection(event):
+    '''Selestionne le type de case/individus à appliquer'''
     w = event.widget
     index = int(w.curselection()[0])
     value = w.get(index)
