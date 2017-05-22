@@ -42,7 +42,7 @@ typePinceau = False                         # Boleen qui permet de selectionner 
 mode = 1                                    # Permet de selectionner un mode d'affichage (1 = normal, 2 = champ de potentiel, 3 = distance, 4 = lignes de champ)
 
 # Gestion du temps
-TpsRaffraichissement = 10                   # Temps de raffraichissement en ms
+TpsRaffraichissement = 30                   # Temps de raffraichissement en ms
 tps = 0                                     # Temps de référence pour le chrono
 pause = False                               # Boleen pour mettre en pause le mouvement des individus
 
