@@ -165,9 +165,10 @@ def update():
         sortir_indiv(terrain)
         stat_nbIndiv(label_nbIndiv)
         
-        Var.tps += Var.TpsRaffraichissement/1000
-        tpsStr = time.strftime("%M:%S", time.gmtime(Var.tps))
-        label_temps.config(text = tpsStr)
+        if(len(Var.LIndiv !=0) :
+            Var.tps += Var.TpsRaffraichissement/1000
+            tpsStr = time.strftime("%M:%S", time.gmtime(Var.tps))
+            label_temps.config(text = tpsStr)
     tk.update_idletasks()
     tk.after(Var.TpsRaffraichissement, update)
 
