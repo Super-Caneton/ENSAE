@@ -2,6 +2,7 @@
 ## Gère le fonctionnement de la simulation de mouvement de foule
 
 import numpy as np
+from copy import *
 from Vect2D import *
 import Variables as Var
 from Case import *
@@ -97,15 +98,14 @@ def wavefront(x, y, Lcondition, Laction, maxd, t):
     '''
     L = [vect2D(x, y)]
     for d in range(maxd):
-        if len(L) == 0 : break
+        if len(L) == 0 : 
+            break
         V = []
         for C in L : #Pour chaque case de L, on ajoute les voisins qui vérifient les conditions
-            V = V + voisins(C.x, C.y, Lcondition, t)
+            V += voisins(C.x, C.y, Lcondition, t)
             for action in Laction :
                 action(C, d) # On effectue les différentes actions sur la case
-        L = []
-        for v in V : # On se prépare à passer aux voisins qui se situent à d + 1 d'une sortie
-            L.append(v)
+        L = deepcopy(V)
     reset_case()
     return
 
