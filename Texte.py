@@ -14,7 +14,7 @@ class texte :
         self.color = color      # La couleur du texte
         self.id = canvas.create_text(pos.x, pos.y, text = mot) # Réprésentation graphique
         
-    def raffraichir(self):
+    def rafraichir(self):
         self.canvas.coords(self.id, self.pos.x, self.pos.y)
         self.canvas.itemconfig(self.id, text = self.mot)
         return
