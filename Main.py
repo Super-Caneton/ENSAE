@@ -165,7 +165,7 @@ def update():
         sortir_indiv(terrain)
         stat_nbIndiv(label_nbIndiv)
         
-        if(len(Var.LIndiv !=0) :
+        if(len(Var.LIndiv) !=0) :
             Var.tps += Var.TpsRaffraichissement/1000
             tpsStr = time.strftime("%M:%S", time.gmtime(Var.tps))
             label_temps.config(text = tpsStr)
