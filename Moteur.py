@@ -21,7 +21,7 @@ def terrain_vierge(terrain):
         for y in range(Var.hauteur):
             Var.TCase[y, x].type = 0
             Var.TCase[y, x].score = -1
-            Var.TCase[y, x].raffraichir()
+            Var.TCase[y, x].rafraichir()
             Var.Tdirection[y, x].x = 0
             Var.Tdirection[y, x].y = 0
     return
@@ -175,20 +175,20 @@ def direction() :
                 
     return
     
-def raffraichir():
-    '''Permet de raffraichir les cases et d'appliquer le dégradé correspondant à la distance du plus court chemin et les valeurs même de cette distance en chaque case en fonction du mode'''
+def rafraichir():
+    '''Permet de rafraichir les cases et d'appliquer le dégradé correspondant à la distance du plus court chemin et les valeurs même de cette distance en chaque case en fonction du mode'''
     cacher_ligne()
     cacher_texte()
     if Var.mode == 1 : # mode 1 = aucun affichage
         for x in range(Var.largeur) :
             for y in range(Var.hauteur) :
-                Var.TCase[y, x].raffraichir()
+                Var.TCase[y, x].rafraichir()
     if(Var.mode >= 2) : # mode 2 = on affiche uniquement un degradé
         fg = (10, 10, 100)      # Bleu foncé
         bg = (255, 255, 255)    # Blanc
         for x in range(Var.largeur):
             for y in range(Var.hauteur):
-                Var.TCase[y, x].raffraichir()
+                Var.TCase[y, x].rafraichir()
                 if Var.TCase[y ,x].score > 0 :
                     Var.TCase[y, x].degrade(fg, bg, Var.hauteur + Var.largeur)
         if Var.mode == 3: # mode 3 = on affiche un dégradé et les valeurs des distances
@@ -198,13 +198,13 @@ def raffraichir():
                         Var.Ttexte[y, x].mot = "∞"
                     else :
                         Var.Ttexte[y, x].mot = str(Var.TCase[y, x].score)
-                    Var.Ttexte[y, x].raffraichir()
+                    Var.Ttexte[y, x].rafraichir()
         if Var.mode == 4: # mode 4 = on affiche un degradé et les vecteurs directionnels
             for x in range(Var.largeur):
                 for y in range(Var.hauteur):
                     Var.Tligne[y, x].pos1 = vect2D(x,y) * Var.dimCase + vect2D(1,1) * (Var.dimCase / 2)
                     Var.Tligne[y, x].pos2 = Var.Tligne[y, x].pos1 + Var.Tdirection[y,x] * 5
-                    Var.Tligne[y, x].raffraichir()
+                    Var.Tligne[y, x].rafraichir()
     return
 
 # Fonctions qui réalise des statistiques sur les données de la simulation :
