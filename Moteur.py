@@ -95,15 +95,14 @@ def wavefront(x, y, Lcondition, Laction, maxd, t):
              -> t : Si t = False : on considère les voisins avec une frontière commune avec notre case
                     Si t = True : on considère les voisins diagonaux en plus
     '''
-    d = 0
     L = [vect2D(x, y)]
-    while d < maxd and len(L) != 0 :
+    for d in range(maxd):
+        if len(L) == 0 : break
         V = []
         for C in L : #Pour chaque case de L, on ajoute les voisins qui vérifient les conditions
             V = V + voisins(C.x, C.y, Lcondition, t)
             for action in Laction :
                 action(C, d) # On effectue les différentes actions sur la case
-        d += 1
         L = []
         for v in V : # On se prépare à passer aux voisins qui se situent à d + 1 d'une sortie
             L.append(v)
