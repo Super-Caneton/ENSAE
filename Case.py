@@ -19,7 +19,7 @@ class case :
         self.id = canvas.create_rectangle(0, 0, dim, dim, fill = color, outline = color) # representation graphique de la case
         self.canvas.move(self.id, pos.x * dim, pos.y * dim) #Positionnement de la case
     
-    def raffraichir(self):
+    def rafraichir(self):
         '''raffraichit la couleur d'une case'''
         if self.type == -1 :
             self.color = "black"
