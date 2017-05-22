@@ -135,9 +135,13 @@ label_nbIndiv.pack()
 
 Frame(p2, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
 
+#Le chronomètre qui mesure le temps que met la dernière personne à sortir
 Label(p2, text = "Temps écoulé :").pack()
 label_temps = Label(p2, text = "00:00")
 label_temps.pack()
+
+bouton_temps = Button(p2, text = "Réinitialiser\n le chrono", command = reset_temps)
+bouton_temps.pack(fill=X)
 
 Frame(p2, height=2, bd=1, relief=SUNKEN).pack(fill=X, padx=5, pady=5)
 
