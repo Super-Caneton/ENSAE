@@ -47,7 +47,7 @@ def charger(terrain) :
             if(int(l)==1) :
                 Var.LSortie.append([x,y])
             Var.TCase[y,x].type = int(l)
-            Var.TCase[y,x].raffraichir()
+            Var.TCase[y,x].rafraichir()
     save.close()
     return
     
@@ -57,7 +57,7 @@ def remplir_mur() :
     for x in range(Var.largeur) :
         for y in range(Var.hauteur) :
             Var.TCase[y,x].type = -1
-            Var.TCase[y,x].raffraichir()
+            Var.TCase[y,x].rafraichir()
     return
   
     
@@ -65,7 +65,7 @@ def remplir_mur() :
 def change_mode(nvmode):
     '''Change le mode d'affichage'''
     Var.mode = nvmode
-    raffraichir()
+    rafraichir()
     return
     
 def affiche_grille() :
@@ -77,7 +77,7 @@ def affiche_grille() :
                 Var.TCase[y,x].grille = True
             else :
                 Var.TCase[y,x].grille = False
-    raffraichir()
+    rafraichir()
     return
     
 ## Aide (Menu4)
@@ -174,7 +174,7 @@ def efface_case(x,y):
         Var.LSortie.remove([C.x,C.y])
     Var.TCase[y,x].score = -1
     Var.TCase[y,x].type = 0
-    Var.TCase[y,x].raffraichir()
+    Var.TCase[y,x].rafraichir()
     
 def clic_droit(event):
     coordonnees_pointeur(event.x,event.y)
