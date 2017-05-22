@@ -73,7 +73,7 @@ def voisins(x, y, Lcondition, t):
     L = []
     V = [vect2D(x - 1, y), vect2D(x + 1, y), vect2D(x, y - 1), vect2D(x, y + 1)]
     if t :
-        V= V + [vect2D(x - 1,y - 1), vect2D(x - 1,y + 1), vect2D(x + 1,y - 1), vect2D(x + 1,y + 1)]
+        V += [vect2D(x - 1,y - 1), vect2D(x - 1,y + 1), vect2D(x + 1,y - 1), vect2D(x + 1,y + 1)]
     for C in V : # C est un vecteur de coordonnées de la forme vect2D(x,y)
         if 0 <= C.x and C.x < Var.largeur and 0 <= C.y and C.y < Var.hauteur : # On vérifie que le voisin est dans le domaine du terrain
             if Var.TCase[C.y, C.x].explore == False : # On vérifie que la case n'a pas déjà été explorée
@@ -114,8 +114,8 @@ def recalcule_champ_potentiel():
     for x in range(Var.largeur):
         for y in range(Var.hauteur):
             Var.TCase[y, x].score = -1 # On réinitialise toutes les cases à la distance par défaut -1
-    for S in Var.LSortie :
-        wavefront(S[0], S[1], [pas_mur_condition], [change_distance_action], Var.hauteur * Var.largeur, False)
+    for (x, y) in Var.LSortie :
+        wavefront(x, y, [pas_mur_condition], [change_distance_action], Var.hauteur * Var.largeur, False)
         # Pour chaque sortie, on effectue wavefront, c'est à dire qu'on regarde le plus court chemin de chaque case à cette sortie, et on prend le minimum
         # La distance maximum correspond ici au nombre de cases sur le plateau
     direction()
