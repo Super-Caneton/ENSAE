@@ -69,7 +69,7 @@ def touche_indiv(individu1, individu2):
 
 def rebond_indiv(individu1, individu2): 
     '''Lorsqu'il y a collision entre deux individu, calcule les vitesses de chacun après le choc'''
-    if(p_scal(individu1.dpos, individu2.dpos) < 0) : #Vérifie si les individus ne s'éloignent pas déjà
+    if p_scal(individu1.dpos, individu2.dpos) < 0 : #Vérifie si les individus ne s'éloignent pas déjà
         return
     
     n = individu1.pos - individu2.pos
