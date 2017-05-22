@@ -61,7 +61,7 @@ def change_case_action(C, d = 0):
         Var.LSortie.remove([C.x, C.y])
     Var.TCase[C.y, C.x].score = -1
     Var.TCase[C.y, C.x].type = Var.typeCase
-    Var.TCase[C.y, C.x].raffraichir()
+    Var.TCase[C.y, C.x].rafraichir()
     return
 
 # Fonction de calcul du champs scalaire
@@ -119,7 +119,7 @@ def recalcule_champ_potentiel():
         # Pour chaque sortie, on effectue wavefront, c'est à dire qu'on regarde le plus court chemin de chaque case à cette sortie, et on prend le minimum
         # La distance maximum correspond ici au nombre de cases sur le plateau
     direction()
-    raffraichir()
+    rafraichir()
     return
 # ===============================================================================================================
 
