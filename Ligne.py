@@ -31,5 +31,5 @@ def cacher_ligne():
         for y in range(Var.hauteur):
             Var.Tligne[y,x].pos1 = vect2D()
             Var.Tligne[y,x].pos2 = vect2D()
-            Var.Tligne[y,x].raffraichir()
+            Var.Tligne[y,x].rafraichir()
     return
