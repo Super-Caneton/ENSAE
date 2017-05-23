@@ -35,5 +35,5 @@ def cacher_texte():
     for x in range(Var.largeur):
         for y in range(Var.hauteur):
             Var.Ttexte[y,x].mot = ""
-            Var.Ttexte[y,x].raffraichir()
+            Var.Ttexte[y,x].rafraichir()
     return
