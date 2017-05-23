@@ -1,95 +1,95 @@
+## Fichier Evenement.py
+## Gère les interactions entre le code et l'interface
+
 from tkinter import *
 from tkinter.messagebox import *
 from tkinter.filedialog import *
 import numpy as np
 import Variables as Var
-from Case import*
-from Texte import*
-from Ligne import*
-from Individu import*
-from Moteur import*
+from Case import *
+from Texte import *
+from Ligne import *
+from Individu import *
+from Moteur import *
 
-##Menu
-
-##Fichier (Menu1)
-def nouveau(terrain) :
+# Fonction du Menu
+    # Option de Fichier
+def nouveau(terrain):
     '''Crée un nouveau terrain'''
-    if askyesno("Attention","Êtes vous sûr de vouloir tout supprimer ?"):
+    if askyesno("Attention", "Êtes vous sûr de vouloir tout supprimer ?"):
         terrain_vierge(terrain)
     return
 
-#Sauvegarder
 def enregistrer_sous():
     '''Enregistre le terrain dans un fichier texte'''
-    save = asksaveasfile(mode='w', filetypes=[('Fichier Texte (.txt)','.txt')], defaultextension=".txt")
-    if save =="":
+    save = asksaveasfile(mode = 'w', filetypes = [('Fichier Texte (.txt)','.txt')], defaultextension = ".txt")
+    if save == "" :
         return
-    for x in range(Var.largeur) :
-        for y in range(Var.hauteur-1) :
-            save.write(str(Var.TCase[y,x].type)+" ")
+    for x in range(Var.largeur):
+        for y in range(Var.hauteur - 1):
+            save.write(str(Var.TCase[y,x].type) + " ")
         save.write(str(Var.TCase[Var.hauteur-1,x].type))
         save.write("\n")
     save.close()
     return
 
-#Charger
-def charger(terrain) :
+def charger(terrain):
     '''Charge le terrain d'un fichier texte'''
-    filename = askopenfilename(title="Ouvrir votre fichier",filetypes=[('Fichier Texte (.txt)','.txt')])
-    if filename =="" :
+    filename = askopenfilename(title = "Ouvrir votre fichier", filetypes = [('Fichier Texte (.txt)', '.txt')])
+    if filename == "" :
         return
     terrain_vierge(terrain)
     save = open(filename, "r")
     data = save.readlines()
     for x, line in enumerate(data):
         L = line.split()
-        for y,l in enumerate(L) :
-            if(int(l)==1) :
+        for y,l in enumerate(L):
+            if int(l) == 1 :
                 Var.LSortie.append([x,y])
             Var.TCase[y,x].type = int(l)
             Var.TCase[y,x].rafraichir()
     save.close()
     return
     
-## Éditer(Menu2)
+    # Option Éditer
 def remplir_mur() :
     '''Rempli le terrain de mur'''
-    for x in range(Var.largeur) :
-        for y in range(Var.hauteur) :
+    for x in range(Var.largeur):
+        for y in range(Var.hauteur):
             Var.TCase[y,x].type = -1
             Var.TCase[y,x].rafraichir()
     return
   
     
-## Affichage(Menu3)
+    # Option Affichage
 def change_mode(nvmode):
     '''Change le mode d'affichage'''
     Var.mode = nvmode
     rafraichir()
     return
     
-def affiche_grille() :
+def affiche_grille():
     '''Active ou désactive la grille'''
     Var.grilleTerrain = not(Var.grilleTerrain)
-    for x in range(Var.largeur) :
-        for y in range(Var.hauteur) :
-            if(Var.grilleTerrain) :
+    for x in range(Var.largeur):
+        for y in range(Var.hauteur):
+            if(Var.grilleTerrain):
                 Var.TCase[y,x].grille = True
             else :
                 Var.TCase[y,x].grille = False
     rafraichir()
     return
     
-## Aide (Menu4)
-def info() :
+    # Option Aide (Menu4)
+def info():
     '''Affiche des infos sur le programme'''
     showinfo("A propos", Var.titre + " par LAM Kevin et MEILAC Adrien")
     return
     
-## bouton_typePinceau
+# Panneau latéral gauche
 def change_typePinceau(self):
     '''Change le type de pinceau entre Carré ou Croix'''
-    if(Var.typePinceau) :
+    if Var.typePinceau :
         self.config(text = "Croix", command =  lambda : change_typePinceau(self))
     else :
         self.config(text = "Carré", command =  lambda : change_typePinceau(self))
@@ -97,8 +97,7 @@ def change_typePinceau(self):
     self.pack(fill=X)
     return
     
-## bouton_recalcule
-def recalcule(label) :
+def recalcule(label):
     '''Recalcule le chmp de potentiel'''
     recalcule_champ_potentiel()
     stat_dMaxCase(label)
