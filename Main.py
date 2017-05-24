@@ -1,4 +1,5 @@
 from tkinter import *
+import os
 import time
 import Variables as Var
 from Case import*
@@ -7,6 +8,8 @@ from Ligne import*
 from Individu import*
 from Moteur import*
 from Evenement import*
+
+cwd = os.getcwd() #Chemin absolu du fichier Main.py
 
 #Fenêtre
 tk = Tk()
@@ -51,7 +54,7 @@ menu3.add_command(label= "Grille", command = affiche_grille)
 menubar.add_cascade(label="Affichage", menu=menu3)
 
 menu4 = Menu(menubar, tearoff=0)
-menu4.add_command(label="Manuel")
+menu4.add_command(label="Manuel", command = lambda : os.startfile(cwd+"\Memoire.pdf"))
 menu4.add_command(label="A propos", command=info)
 menubar.add_cascade(label="Aide", menu=menu4)
 
