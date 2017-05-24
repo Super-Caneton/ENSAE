@@ -14,6 +14,7 @@ cwd = os.getcwd() #Chemin absolu du fichier Main.py
 #Fenêtre
 tk = Tk()
 tk.title(Var.titre)
+tk.iconbitmap(cwd+"\icon.ico")
 tk.resizable(0, 0)
 #tk.wm_attributes("-topmost", 1)
 
