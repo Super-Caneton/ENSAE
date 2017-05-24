@@ -10,7 +10,7 @@ class texte :
     def __init__(self, pos = vect2D(), mot = "", canvas = "", color = "black"):
         self.pos = pos          # La position du centre du texte sur le terrain
         self.mot = mot          # Texte à afficher
-        self.canvas = canvas    # Pointe vers le terrain sur leque on dessine
+        self.canvas = canvas    # Pointe vers le terrain sur lequel on dessine
         self.color = color      # La couleur du texte
         self.id = canvas.create_text(pos.x, pos.y, text = mot) # Réprésentation graphique
         
