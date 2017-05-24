@@ -132,7 +132,7 @@ def direction() :
                 reset_case()
                 #On va calculer le vecteur à prendre : le gradient de distance
                 def aux1():
-                    '''Fonction auxiliaire qui gère le cas ou on doit choisir '''
+                    '''Fonction auxiliaire qui gère le cas où on est en contact avec un obstacle'''
                     s = Var.TCase[y, x].score
                     vx = 0
                     vy = 0
@@ -142,7 +142,7 @@ def direction() :
                             vy += (v.y - y)
                     return (vx, vy)
                 def aux2():
-                    '''Fonction auxiliaire qui gère le cas où on est en contact avec un obstacle'''
+                    '''Fonction auxiliaire qui gère le cas ou on doit choisir '''
                     s = Var.TCase[y, x].score
                     vx = 0
                     vy = 0
