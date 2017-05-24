@@ -91,8 +91,8 @@ def wavefront(x, y, Lcondition, Laction, maxd, t):
     '''choisit les voisins de la case (x,y) selon Lcondition et leur applique Laction dans un rayon maxd
     *param : -> x,y coordonnées de la case de départ 
              -> Lcondition une liste de condition à vérifier
-             -> Laction
-             -> maxd
+             -> Laction une liste d'action à effectuer
+             -> maxd la distance maximale sur lequel on va appliquer l'algorithme
              -> t : Si t = False : on considère les voisins avec une frontière commune avec notre case
                     Si t = True : on considère les voisins diagonaux en plus
     '''
@@ -147,7 +147,7 @@ def direction() :
                     vx = 0
                     vy = 0
                     for v in V :
-                        if Var.TCase[v.y, v.x].score < s : # On choisit au hasard un voisin disponible en fonction du gradient
+                        if Var.TCase[v.y, v.x].score < s : # On choisit arbitrairement un voisin disponible en fonction du gradient
                             vx = v.x - x
                             vy = v.y - y
                     return (vx, vy)
@@ -164,7 +164,7 @@ def direction() :
                 #Autre problème
                 else :
                     (vx, vy) = aux1()
-                if vect2D(vx, vy).norme() !=0 :
+                if vect2D(vx, vy).norme() !=0 : #Normalisation du vecteur
                     Var.Tdirection[y, x] = vect2D(vx, vy).normalise()
                 else :
                     (vx, vy) = aux2()
@@ -183,7 +183,7 @@ def rafraichir():
         for x in range(Var.largeur) :
             for y in range(Var.hauteur) :
                 Var.TCase[y, x].rafraichir()
-    if(Var.mode >= 2) : # mode 2 = on affiche uniquement un degradé
+    elif(Var.mode >= 2) : # mode 2 = on affiche uniquement un degradé
         fg = (10, 10, 100)      # Bleu foncé
         bg = (255, 255, 255)    # Blanc
         for x in range(Var.largeur):
@@ -199,7 +199,7 @@ def rafraichir():
                     else :
                         Var.Ttexte[y, x].mot = str(Var.TCase[y, x].score)
                     Var.Ttexte[y, x].rafraichir()
-        if Var.mode == 4: # mode 4 = on affiche un degradé et les vecteurs directionnels
+        elif Var.mode == 4: # mode 4 = on affiche un degradé et les vecteurs directionnels
             for x in range(Var.largeur):
                 for y in range(Var.hauteur):
                     Var.Tligne[y, x].pos1 = vect2D(x,y) * Var.dimCase + vect2D(1,1) * (Var.dimCase / 2)
